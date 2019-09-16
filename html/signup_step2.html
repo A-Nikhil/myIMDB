@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Step 2 of 4</title>
+	<link rel="stylesheet" href="../bootstrap-4.3.1-dist/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+	<style>
+		body {
+			background-image: url("../img/bgPosters/john-wick-chapter-2_ac33_1600x900.jpg");
+			background-attachment: fixed;
+			background-repeat: no-repeat;
+		}
+
+		.surrounding {
+			padding-top: 2rem;
+			width: 100%;
+			height: 100%;
+			color: white;
+		}
+
+		.signup {
+			padding: 2rem;
+			background-color: white;
+			color: black;
+			border-radius: 15px;
+			margin-bottom: 4rem;
+		}
+
+		.progress-bar {
+			border-radius: 5px;
+			width: 50%;
+		}
+
+		label {
+			margin-top: 30px;
+			margin-left: 15px;
+		}
+
+		hr.light {
+			border-top: 2px solid #000;
+			width: 75%;
+		}
+
+		form {
+			width: 100%;
+			height: 100%;
+		}
+
+		input[type=submit] {
+			margin-top: 2rem;
+		}
+	</style>
+</head>
+<body>
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+	<div class="col-5"></div>
+	<div class="col-2">
+		<h3 class="text-center text-light">Signup</h3>
+	</div>
+	<div class="col-5"></div>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+</nav>
+<div class="progress">
+	<div class="progress-bar progress-bar-animated progress-bar-striped" role="progressbar"
+		 aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="background-color: #F39C12;">
+	</div>
+</div>
+<div class="container-fluid surrounding">
+	<div class="row text-center">
+		<div class="col-xs-1 col-sm-1 col-md-2 col-lg-3 text-left">
+			<a tabindex="0" class="btn btn-lg btn-light" role="button" data-toggle="popover" data-trigger="focus"
+			   title="About the image" data-content='John Wick : Chapter 2 (2017)'>
+				<i class="fas fa-eye"></i>
+			</a>
+		</div>
+
+		<div class="col-xs-10 col-sm-12 col-md-8 col-lg-6 signup position-static">
+			<h5 class="text-center">Tell us what you're interested in</h5>
+			<hr class="light">
+			<form action="" method="post" id="form">
+				<div class="btn-group-toggle col-lg-12 col-md-4" data-toggle="buttons">
+					<label class="btn btn-outline-dark" id="label1">
+						<input type="checkbox" name="check" id="chkbox0" value="Drama"> Drama
+					</label>
+					<label class="btn btn-outline-dark" id="label2">
+						<input type="checkbox" id="chkbox1" name="check" value="Thriller"> Thriller
+					</label>
+					<label class="btn btn-outline-dark" id="label3">
+						<input type="checkbox" id="chkbox2" name="check" value="Action"> Action
+					</label>
+					<label class="btn btn-outline-dark" id="label4">
+						<input type="checkbox" id="chkbox3" name="check" value="SciFi"> SciFi
+					</label>
+					<br>
+					<label class="btn btn-outline-dark" id="label5">
+						<input type="checkbox" id="chkbox4" name="check" value="Romance"> Romance
+					</label>
+					<label class="btn btn-outline-dark" id="label6">
+						<input type="checkbox" id="chkbox5" name="check" value="Comedy"> Comedy
+					</label>
+					<label class="btn btn-outline-dark" id="label7">
+						<input type="checkbox" id="chkbox6" name="check" value="Horror"> Horror
+					</label>
+					<br>
+					<label class="btn btn-outline-dark" id="label8">
+						<input type="checkbox" id="chkbox7" name="check" value="Crime"> Crime
+					</label>
+					<label class="btn btn-outline-dark" id="label9">
+						<input type="checkbox" id="chkbox8" name="check" value="Documentary">
+						Documentary
+					</label>
+					<label class="btn btn-outline-dark" id="label10">
+						<input type="checkbox" id="chkbox9" name="check" value="Western"> Western
+					</label>
+					<label class="btn btn-outline-dark" id="label11">
+						<input type="checkbox" id="chkbox10" name="check" value="Bollywood">
+						Bollywood
+					</label>
+					<br>
+					<label class="btn btn-outline-dark" id="label12">
+						<input type="checkbox" id="chkbox11" name="check" value="War"> War
+					</label>
+					<label class="btn btn-outline-dark" id="label13">
+						<input type="checkbox" id="chkbox12" name="check" value="Epic"> Epic
+					</label>
+					<label class="btn btn-outline-dark" id="label14">
+						<input type="checkbox" id="chkbox13" name="check" value="Biographies">
+						Biographies
+					</label>
+					<br>
+				</div>
+				<input type="submit" class="btn-outline-primary btn">
+			</form>
+		</div>
+	</div>
+	<div class="col-xs-1 col-sm-1 col-md-2 col-lg-3"></div>
+</div>
+<script>
+
+    $(document).ready(() => {
+
+        // About the image
+        $('[data-toggle="popover"]').popover();
+
+        // Getting checkboxes
+
+        // Inserting into db
+        const form = $("#form");
+        let choiceString = "";
+        form.submit((e) => {
+            e.preventDefault();
+            console.log("boom");
+            $('input[type=checkbox]').each(function () {
+                if (this.checked) {
+                    console.log($(this).val());
+                    choiceString += $(this).val() + ";";
+                }
+            });
+            console.log(choiceString);
+        })
+    });
+</script>
+</body>
+</html>

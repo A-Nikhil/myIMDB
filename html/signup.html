@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Sign Up !!</title>
+	<link rel="stylesheet" href="../bootstrap-4.3.1-dist/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+	<link rel="stylesheet" href="../css/signup.css" type="text/css">
+</head>
+<body>
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+	<div class="col-5"></div>
+	<div class="col-2">
+		<h3 class="text-center text-light">Signup</h3>
+	</div>
+	<div class="col-5"></div>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+</nav>
+<div class="progress">
+	<div class="progress-bar progress-bar-animated progress-bar-striped" role="progressbar"
+		 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%">25%
+	</div>
+</div>
+<div class="container-fluid surrounding">
+	<div class="row">
+		<div class="col-lg-7 col-md-2 col-sm-1 col-xs-1">
+			<a tabindex="0" class="btn btn-lg btn-light" role="button" data-toggle="popover" data-trigger="focus"
+			   title="About the image" data-content='John Wick : Chapter 2 (2017)'>
+				<i class="fas fa-eye"></i>
+			</a>
+		</div>
+		<div class="col-lg-4 col-md-8 col-sm-10 col-xs-10 signup">
+			<h5 class="text-center">Let's get the basic details</h5>
+			<hr class="light">
+			<form action="" method="post" id="form">
+				<div class="form-group">
+					<label for="username">Username</label> <span class="badge badge-pill badge-danger">Required</span>
+					<input type="text" id="username" class="form-control" placeholder="The name we'll call you by"
+						   required>
+					<small class="form-text text-muted text-left help">can be your name or can be a superhero
+						name..</small>
+					<div class="valid-tooltip">Correct</div>
+				</div>
+				<div class="form-group">
+					<label for="firstName">First Name</label> <span
+						class="badge badge-pill badge-danger">Required</span>
+					<input type="text" id="firstName" class="form-control" placeholder="First Name" required>
+					<small class="form-text text-muted text-left">your first name</small>
+					<div class="valid-tooltip">Correct</div>
+				</div>
+				<div class="form-group">
+					<label for="lastName">Last Name</label> <span class="badge badge-pill badge-danger">Required</span>
+					<input type="text" id="lastName" class="form-control" placeholder="Last Name" required>
+					<small class="form-text text-muted text-left">middle name (if there).. and last name
+						obviously</small>
+					<div class="valid-tooltip">Correct</div>
+				</div>
+				<div class="form-group">
+					<label for="dob">Date of Birth</label> <span class="badge badge-pill badge-danger">Required</span>
+					<input type="date" id="dob" class="form-control" required>
+					<small class="form-text text-muted text-left">Happy Birthday in advance.!! (or belated..
+						whatever)</small>
+					<div class="valid-tooltip">Correct</div>
+				</div>
+				<div class="form-group">
+					<label for="gender">Gender</label>
+					<select class="custom-select" id="gender">
+						<option selected>Select gender</option>
+						<option value="1">Male</option>
+						<option value="2">Female</option>
+						<option value="2">Others</option>
+					</select>
+					<small class="form-text text-muted text-left">#PRIDE</small>
+				</div>
+				<div class="form-group">
+					<label for="password">Password</label> <span class="badge badge-pill badge-danger">Required</span>
+					<input type="password" id="password" class="form-control" placeholder="Password" required>
+					<small class="form-text text-muted text-left">We suggest a mixture of digits, alphabets and special
+						characters</small>
+					<div class="valid-tooltip">Correct</div>
+				</div>
+				<div class="form-group">
+					<label for="confirmPassword">Confirm Password</label> <span class="badge badge-pill badge-danger">Required</span>
+					<input type="password" id="confirmPassword" class="form-control" placeholder="Confirm password"
+						   required>
+					<small class="form-text text-muted text-left">Retype your password again</small>
+					<div class="valid-tooltip">Correct</div>
+				</div>
+				<div class="custom-control custom-switch" style="margin-bottom: 30px; margin-top: 20px">
+					<input type="checkbox" class="custom-control-input" id="customSwitch1" required>
+					<label class="custom-control-label" for="customSwitch1">I agree to the T&C of WtW.com</label>
+				</div>
+				<div class="text-center">
+					<button type="submit" class="btn btn-outline-primary" style="width: 60%">Submit</button>
+				</div>
+			</form>
+		</div>
+		<div class="col-lg-1 col-md-2 col-sm-1 col-xs-1"></div>
+	</div>
+</div>
+<script>
+    $(document).ready(function () {
+
+        // About the image
+        $('[data-toggle="popover"]').popover();
+
+        const form = $("#form");
+
+        // Variables in the page
+        const username = $("#username"),
+            firstName = $("#firstName"),
+            lastName = $("#lastName"),
+            dob = $("#dob"),
+            gender = $("#gender"),
+            password = $("#password"),
+            confirm = $("#confirmPassword");
+
+        function validation() {
+            if (confirm !== password && confirm.length > 3 && password.length > 3) {
+                window.prompt("Password should match | Please submit again");
+                return false
+            }
+        }
+        if (confirm !== password && confirm.length > 3 && password.length > 3) {
+            alert("Password should match");
+        }
+
+        form.submit((e) => {
+            e.preventDefault();
+            if (validation()) {
+                fetch('/', {
+                    method: "POST",
+                    body: JSON.stringify({
+                        username: username.val(),
+                        firstName: firstName.val(),
+                        lastName: lastName.val(),
+                        dob: dob.val(),
+                        gender: gender.val(),
+                        password: password.val(),
+                    }),
+                    headers: {
+                        "Content-Type": "application/json; charset=utf-8"
+                    }
+                }).then((response) => {
+                    return response.json();
+                }).then((data) => {
+                    if (data.result.ok === 1 && data.result.n === 1) {
+                        sessionStorage.setItem("currentUser", username.val());
+                        window.location.href = "/login";
+                    }
+                });
+            }
+        });
+    });
+</script>
+</body>
+</html>
