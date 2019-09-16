@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,700');
+
+.welcome {
+    width: 75%;
+    margin: 0 auto;
+}
+
+.welcome {
+    margin-top: 4rem;
+    font-family: "Roboto", sans-serif;
+}
+
+.welcome hr{
+    border-top: 2px solid #b4b4b4;
+    width: 95%;
+    margin-top: .3rem;
+    margin-bottom: 1rem;
+}
+
+.card {
+    border: 1px solid #b4b4b4;
+    border-radius: 15px;
+}
+
+.social a {
+    font-size: 3.5em;
+    padding: 3rem;
+}
+
+.fa-facebook:hover {
+    color: #3b5998;
+}
+
+.fa-twitter:hover {
+    color: #00aced;
+}
+
+.fa-google-plus-g:hover {
+    color: #dd4b39;
+}
+
+.fa-instagram:hover {
+    /*color: #517fa4;*/
+    color: #bc2a8d;
+}
+
+.fa-youtube:hover {
+    color: #bb0000;
+}
+
+.fa-envelope:hover {
+    color: #D44638;
+}
+
+.fa-facebook,
+.fa-google-plus-g,
+.fa-twitter,
+.fa-instagram,
+.fa-youtube,
+.fa-envelope {
+    color: #6b6e73;
+}
+
+footer {
+    background-color: #3f3f3f;
+    color: #d5d5d5;
+    padding-top: 2rem;
+}
+
+hr.light {
+    border-top: 1px solid #d5d5d5;
+    width: 75%;
+}
+
+/*---Media Queries --*/
+@media (max-width: 982px) {
+
+}
+/*@media (max-width: 768px) {*/
+
+/*}*/
+/*@media (max-width: 576px) {*/
+
+/*}*/
+
+
+/*---Firefox Bug Fix --*/
+.carousel-item {
+    transition: -webkit-transform 0.5s ease;
+    transition: transform 0.5s ease, -webkit-transform 0.5s ease;
+    -webkit-backface-visibility: visible;
+    backface-visibility: visible;
+    text-align: center;
+    width: 100%;
+}
+/*--- Fixed Background Image --*/
+figure {
+    position: relative;
+    width: 100%;
+    height: 60%;
+    margin: 0!important;
+}
+.fixed-wrap {
+    clip: rect(0, auto, auto, 0);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+img.news {
+    width: 80%;
+    height: auto;
+}
+/*--- Bootstrap Padding Fix --*/
+[class*="col-"] {
+    padding: 1rem;
+}
+
+
+
+
+
+/*
+Extra small (xs) devices (portrait phones, less than 576px)
+No media query since this is the default in Bootstrap
+
+Small (sm) devices (landscape phones, 576px and up)
+@media (min-width: 576px) { ... }
+
+Medium (md) devices (tablets, 768px and up)
+@media (min-width: 768px) { ... }
+
+Large (lg) devices (desktops, 992px and up)
+@media (min-width: 992px) { ... }
+
+Extra (xl) large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) { ... }
+*/
