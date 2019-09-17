@@ -1,0 +1,71 @@
+.welcome {
+    width: 75%;
+    margin: 0 auto;
+}
+
+.welcome {
+    /*margin-top: 4rem;*/
+    font-family: "Roboto", sans-serif;
+    color: #000000;
+}
+
+.welcome hr {
+    border-top: 2px solid #000;
+    width: 95%;
+    margin-top: .3rem;
+    margin-bottom: 1rem;
+}
+
+.social a {
+    font-size: 3.5em;
+    padding: 3rem;
+}
+
+footer {
+    background-color: #3f3f3f;
+    color: #d5d5d5;
+    padding-top: 2rem;
+}
+
+hr.light {
+    border-top: 1px solid #d5d5d5;
+    width: 100%;
+}
+
+hr.damn {
+    margin-left: 1px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 75%;
+    border-top: 2px solid black;
+}
+
+li {
+    margin-left: 10px;
+}
+
+#quotes {
+    margin-top: 3rem;
+    font-size: 20px;
+    font-family: "SF Pro Display", sans-serif;
+}
+
+.text-muted {
+    font-size: 20px;
+    font-family: "SF Pro Display", sans-serif;
+}
+
+.base-text {
+    margin-top: 5rem;
+}
+
+#shows-watched,
+#interests,
+#languages {
+    margin-bottom: 2rem;
+    font-family: "Roboto", sans-serif;
+    font-size: 24px;
+    color: #273746;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}

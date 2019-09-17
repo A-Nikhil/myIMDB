@@ -36,4 +36,5 @@ label {
 .progress-bar {
     background-color: #FB2C00;
     border-radius: 5px;
+    width: 33%;
 }

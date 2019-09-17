@@ -1,0 +1,62 @@
+@-webkit-keyframes increaseOpacity {
+    0% {opacity: 0.5}
+    20% {opacity: 0.6}
+    40% {opacity: 0.7}
+    60% {opacity: 0.8}
+    80% {opacity: 0.9}
+    100% {opacity: 1.0}
+}
+
+body {
+    background-image: url("../img/bgPosters/interstellar_96f1_1600x900.jpg");
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+.surrounding {
+    padding-top: 2rem;
+    width: 100%;
+    height: 100%;
+    color: white;
+}
+
+.signup {
+    padding: 2rem;
+    background-color: white;
+    color: black;
+    border-radius: 15px;
+    margin-bottom: 4rem;
+    opacity: 0.5;
+}
+
+.signup:hover {
+    -webkit-animation-name: increaseOpacity;
+    -webkit-animation-duration: 0.5s;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-fill-mode: forwards;
+}
+
+.progress-bar {
+    border-radius: 5px;
+    width: 66%;
+    background-color: #F39C12;
+}
+
+label {
+    margin-top: 30px;
+    margin-left: 15px;
+}
+
+hr.light {
+    border-top: 2px solid #000;
+    width: 75%;
+}
+
+form {
+    width: 100%;
+    height: 100%;
+}
+
+input[type=submit] {
+    margin-top: 2rem;
+}

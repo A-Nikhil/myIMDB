@@ -1,10 +1,11 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const app = express();
+const express = require('express'),
+    bodyParser = require('body-parser'),
+    app = express();
 app.use(bodyParser.json());
-const path = require('path');
-const db = require("./db");
-const collection = "todo";
+const path = require('path'),
+    db = require("./db"),
+    users = "users",
+    actors = "actors";
 
 app.use(express.static(path.join(__dirname, '')));
 
@@ -13,7 +14,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/getTodos', (req, res) => {
-    db.getDB().collection(collection).find({}).toArray((err, documents) => {
+    db.getDB().collection(users).find({}).toArray((err, documents) => {
         if (err) {
             console.log(err);
         } else {
@@ -23,7 +24,7 @@ app.get('/getTodos', (req, res) => {
 });
 
 app.post('/getActorProfile', (req, res) => {
-    db.getDB().collection("actors").find({search: req.body.name}).toArray((err, document) => {
+    db.getDB().collection(actors).find({search: req.body.name}).toArray((err, document) => {
         if (err) {
             console.log(err);
         } else {
@@ -33,16 +34,24 @@ app.post('/getActorProfile', (req, res) => {
 });
 
 app.post('/getUserProfile', (req, res) => {
-    db.getDB().collection("actors")
-        .find({name: req.body.name})
-        .toArray((err, document) => {
-            if (err) {
-                console.log(err);
-            } else {
-                return res.json(document[0]);
-            }
-        })
-});
+        db.getDB().collection(users)
+            .find({username: req.body.username})
+            .toArray((err, document) => {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        if (document[0] === undefined) {
+                            console.log("A falsis, onus salvus calceus.");
+                            document = [{errorStatus: 1}];
+                        }
+                        // console.log(document);
+                        // console.log(document[0]);
+                        res.json(document[0]);
+                    }
+                }
+            )
+    }
+);
 
 // app.put('/:id', (req, res) => {
 //     const todoID = req.params.id;
@@ -56,13 +65,13 @@ app.post('/getUserProfile', (req, res) => {
 //     })
 // });
 
-app.put('/putUserProfile', (req, res) => {
-    const id = req.body.id;
+app.post('/putUserInterests', (req, res) => {
+    const username = req.body.username;
     const interests = req.body.interests;
     // noinspection JSIgnoredPromiseFromCall
-    db.getDB().collection(collection)
+    db.getDB().collection(users)
         .findOneAndUpdate(
-            {_id: db.getPrimaryKey(id)},
+            {username: username},
             {$set: {interests: interests}},
             {returnOriginal: false},
             (err, result) => {
@@ -71,13 +80,34 @@ app.put('/putUserProfile', (req, res) => {
                 } else {
                     res.json(result);
                 }
-            })
+            }
+        )
+});
+
+
+app.post('/putUserLanguages', (req, res) => {
+    const username = req.body.username;
+    const langs = req.body.languages;
+    // noinspection JSIgnoredPromiseFromCall
+    db.getDB().collection(users)
+        .findOneAndUpdate(
+            {username: username},
+            {$set: {languages: langs}},
+            {returnOriginal: false},
+            (err, result) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    res.json(result);
+                }
+            }
+        )
 });
 
 app.post('/', (req, res) => {
     const userInput = req.body;
     // noinspection JSIgnoredPromiseFromCall
-    db.getDB().collection(collection).insertOne(userInput, (err, result) => {
+    db.getDB().collection(users).insertOne(userInput, (err, result) => {
         if (err) {
             console.log(err);
         } else {
@@ -89,7 +119,7 @@ app.post('/', (req, res) => {
 app.delete('/:id', (req, res) => {
     const todoID = req.params.id;
     // noinspection JSIgnoredPromiseFromCall
-    db.getDB().collection(collection).findOneAndDelete({_id: db.getPrimaryKey(todoID)}, (err, result) => {
+    db.getDB().collection(users).findOneAndDelete({_id: db.getPrimaryKey(todoID)}, (err, result) => {
         if (err) {
             console.log(err);
         } else {
@@ -125,4 +155,12 @@ app.get('/actorProfile', (req, res) => {
 
 app.get('/signup_step2', (req, res) => {
     res.sendFile(path.join(__dirname, 'html/signup_step2.html'));
+});
+
+app.get('/signup_step3', (req, res) => {
+    res.sendFile(path.join(__dirname, 'html/signup_step3.html'));
+});
+
+app.get('/userDashboard', (req, res) => {
+    res.sendFile(path.join(__dirname, 'html/userDashboard.html'));
 });

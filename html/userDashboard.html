@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Your Dashboard</title>
+	<link rel="stylesheet" href="../bootstrap-4.3.1-dist/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="../css/userDashboard.css">
+</head>
+<body>
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+	<a class="navbar-brand" href="#">
+		<img src="../img/logo2.png" alt="logo">
+	</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<form class="form-inline mr-auto mt-2 mt-lg-0">
+			<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+			<button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+		</form>
+		<ul class="navbar-nav my-2 my-lg-0">
+			<li class="nav-item">
+				<a class="nav-link" href="/">Home </a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#newArrivals">New Arrivals</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">Submit a suggestion</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">Contact Us</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link active" href="/login" id="username">Login</a>
+			</li>
+		</ul>
+	</div>
+</nav>
+<div class="jumbotron">
+	<div class="welcome">
+		<p class="display-3 text-center" id="hello">Hello, Nikhil</p>
+		<hr>
+		<p id="quotes" class="text-muted text-center">
+			"The further you get away from yourself, the more challenging it is. Not to be in your comfort zone is
+			great fun."
+		</p>
+		<p class="text-muted text-right font-italic" id="by">
+			- Benedict Cumberbatch
+		</p>
+	</div>
+</div>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-xs-0 col-sm-0 col-md-1 col-lg-2"></div>
+		<div class="col-xs-12 col-sm-12 col-md-10 col-lg-8">
+			<p class="display-4 text-left">
+				You recently watched
+			</p>
+			<hr class="damn">
+			<p id="shows-watched">
+				Diatrias potus in caelos!
+			</p>
+			<button class="btn btn-outline-dark">Add more movies</button>
+			<hr class="light text-left">
+			<p class="display-4 text-left base-text">
+				Your Interests
+			</p>
+			<hr class="damn">
+			<p id="interests">
+				Happiness, politics and a pure monastery.
+			</p>
+			<button class="btn btn-outline-dark">Add more interests</button>
+			<hr class="light text-left">
+			<p class="display-4 text-left base-text">
+				Languages of interest
+			</p>
+			<hr class="damn">
+			<p id="languages">
+				Quirky deaths lead to the energy.
+			</p>
+			<button class="btn btn-outline-dark">Add more languages</button>
+			<hr class="light text-left">
+		</div>
+		<div class="col-xs-0 col-sm-0 col-md-1 col-lg-2"></div>
+	</div>
+</div>
+<footer>
+	<div class="container-fluid">
+		<div class="row text-center">
+			<div class="col-4">
+				<h6>Our Offices </h6>
+				<hr class="light">
+				<p>contact@wtw.com</p>
+				<p>Mountain View, California</p>
+				<p>CA - 90425</p>
+			</div>
+			<div class="col-4">
+			</div>
+			<div class="col-4">
+				<h6>Get the app</h6>
+				<hr class="light text-center">
+				<img src="../img/google-button.png" style="width: 200px; height: auto" alt="play store"> <br><br>
+				<img src="../img/app-store.png" style="width: 200px; height: auto" alt="applestore">
+			</div>
+			<div class="col-12">
+				<hr class="light">
+				<img src="../img/logo2.png" alt="..">
+			</div>
+		</div>
+	</div>
+</footer>
+<script>
+    $(document).ready(() => {
+        const user = sessionStorage.getItem('currentUser');
+
+        $('#username').text(user);
+
+        // get fields
+        const hello = $('#hello'),
+            // quotes = $('#quotes'),
+            // by = $('#by'),
+            movies = $('#shows-watched'),
+            languages = $('#interests'),
+            interests = $('#languages');
+
+        const setProfile = () => {
+            fetch('/getUserProfile', {
+                method: "POST",
+                body: JSON.stringify({
+                    username: user
+                }),
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8"
+                }
+            }).then((response) => {
+                response.json()
+                    .then((returnData) => {
+                        // console.log(returnData.name);
+						hello.text("Hello, " + returnData.firstName);
+						if (returnData.movies.length <= 2) {
+						    movies.text("You haven't watched any movies yet");
+						}
+						console.log(returnData.interests);
+						var str = giveString(returnData.interests);
+                        interests.text(str.substr(0, str.length-2));
+                        console.log(returnData.languages);
+                        str = giveString(returnData.languages);
+                        languages.text(str.substr(0, str.length-2));
+                    })
+            })
+        };
+
+        setProfile();
+        // const number = Math.floor(Math.random() * 10) + 1;
+
+        function giveString(str) {
+            var str1 = "", temp = "";
+            var char = "";
+            for(var i=0; i<str.length; i++) {
+                char = str.charAt(i);
+                if (char === ';') {
+                    str1 += temp + ", ";
+                    temp = "";
+                } else {
+                    temp += char;
+                }
+            }
+            return str1;
+        }
+
+    });
+</script>
+</body>
+</html>
