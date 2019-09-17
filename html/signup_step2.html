@@ -81,7 +81,6 @@
 				<i class="fas fa-eye"></i>
 			</a>
 		</div>
-
 		<div class="col-xs-10 col-sm-12 col-md-8 col-lg-6 signup position-static">
 			<h5 class="text-center">Tell us what you're interested in</h5>
 			<hr class="light">
@@ -150,7 +149,49 @@
         // About the image
         $('[data-toggle="popover"]').popover();
 
-        // Getting checkboxes
+        // getting current user
+        const currentUser = sessionStorage.getItem("currentUser");
+
+        let id = "";
+        const setProfile = () => {
+            fetch('/getUserProfile', {
+                method: "POST",
+                body: JSON.stringify({
+                    name: currentUser
+                }),
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8"
+                }
+            }).then((response) => {
+                response.json()
+                    .then((returnData) => {
+                        // console.log(returnData.name);
+                        id = returnData.id;
+                        console.log(id);
+                        console.log(typeof id);
+                    })
+            })
+        };
+
+        const insertInterests = () => {
+            fetch(`/putUserProfile`, {
+                method: "PUT",
+                body: JSON.stringify({
+                    id: id,
+                    interests: choiceString
+                }),
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8"
+                }
+            }).then((response) => {
+                return response.json();
+            }).then((data) => {
+                if (data.result.ok === 1 && data.result.n === 1) {
+                    console.log("inserted");
+                    window.location.href = "/login";
+                }
+            })
+        };
 
         // Inserting into db
         const form = $("#form");
@@ -165,7 +206,9 @@
                 }
             });
             console.log(choiceString);
-        })
+            setProfile();
+            // insertInterests();
+        });
     });
 </script>
 </body>

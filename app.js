@@ -23,7 +23,7 @@ app.get('/getTodos', (req, res) => {
 });
 
 app.post('/getActorProfile', (req, res) => {
-    db.getDB().collection("actors").find({search : req.body.name}).toArray((err, document) => {
+    db.getDB().collection("actors").find({search: req.body.name}).toArray((err, document) => {
         if (err) {
             console.log(err);
         } else {
@@ -32,20 +32,51 @@ app.post('/getActorProfile', (req, res) => {
     })
 });
 
-app.put('/:id', (req, res) => {
-    const todoID = req.params.id;
-    const userInput = req.body;
-    db.getDB().collection(collection).findOneAndUpdate({_id: db.getPrimaryKey(todoID)}, {$set: {todo: userInput.todo}}, {returnOriginal: false}, (err, result) => {
-        if (err) {
-            console.log(err);
-        } else {
-            res.json(result);
-        }
-    })
+app.post('/getUserProfile', (req, res) => {
+    db.getDB().collection("actors")
+        .find({name: req.body.name})
+        .toArray((err, document) => {
+            if (err) {
+                console.log(err);
+            } else {
+                return res.json(document[0]);
+            }
+        })
+});
+
+// app.put('/:id', (req, res) => {
+//     const todoID = req.params.id;
+//     const userInput = req.body;
+//     db.getDB().collection(collection).findOneAndUpdate({_id: db.getPrimaryKey(todoID)}, {$set: {todo: userInput.todo}}, {returnOriginal: false}, (err, result) => {
+//         if (err) {
+//             console.log(err);
+//         } else {
+//             res.json(result);
+//         }
+//     })
+// });
+
+app.put('/putUserProfile', (req, res) => {
+    const id = req.body.id;
+    const interests = req.body.interests;
+    // noinspection JSIgnoredPromiseFromCall
+    db.getDB().collection(collection)
+        .findOneAndUpdate(
+            {_id: db.getPrimaryKey(id)},
+            {$set: {interests: interests}},
+            {returnOriginal: false},
+            (err, result) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    res.json(result);
+                }
+            })
 });
 
 app.post('/', (req, res) => {
     const userInput = req.body;
+    // noinspection JSIgnoredPromiseFromCall
     db.getDB().collection(collection).insertOne(userInput, (err, result) => {
         if (err) {
             console.log(err);
@@ -57,6 +88,7 @@ app.post('/', (req, res) => {
 
 app.delete('/:id', (req, res) => {
     const todoID = req.params.id;
+    // noinspection JSIgnoredPromiseFromCall
     db.getDB().collection(collection).findOneAndDelete({_id: db.getPrimaryKey(todoID)}, (err, result) => {
         if (err) {
             console.log(err);
@@ -89,4 +121,8 @@ app.get('/signup', (req, res) => {
 
 app.get('/actorProfile', (req, res) => {
     res.sendFile(path.join(__dirname, 'html/actorProfile.html'));
+});
+
+app.get('/signup_step2', (req, res) => {
+    res.sendFile(path.join(__dirname, 'html/signup_step2.html'));
 });

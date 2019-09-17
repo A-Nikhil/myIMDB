@@ -128,35 +128,37 @@
                 return false
             }
         }
+
         if (confirm !== password && confirm.length > 3 && password.length > 3) {
             alert("Password should match");
         }
 
         form.submit((e) => {
             e.preventDefault();
-            if (validation()) {
-                fetch('/', {
-                    method: "POST",
-                    body: JSON.stringify({
-                        username: username.val(),
-                        firstName: firstName.val(),
-                        lastName: lastName.val(),
-                        dob: dob.val(),
-                        gender: gender.val(),
-                        password: password.val(),
-                    }),
-                    headers: {
-                        "Content-Type": "application/json; charset=utf-8"
-                    }
-                }).then((response) => {
-                    return response.json();
-                }).then((data) => {
-                    if (data.result.ok === 1 && data.result.n === 1) {
-                        sessionStorage.setItem("currentUser", username.val());
-                        window.location.href = "/login";
-                    }
-                });
-            }
+            // if (true) {
+            fetch('/', {
+                method: "POST",
+                body: JSON.stringify({
+                    username: username.val(),
+                    firstName: firstName.val(),
+                    lastName: lastName.val(),
+                    dob: dob.val(),
+                    gender: gender.val(),
+                    password: password.val(),
+                    interests: " "
+                }),
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8"
+                }
+            }).then((response) => {
+                return response.json();
+            }).then((data) => {
+                if (data.result.ok === 1 && data.result.n === 1) {
+                    sessionStorage.setItem("currentUser", username.val());
+                    window.location.href = "/signup_step2";
+                }
+            });
+            // }
         });
     });
 </script>
