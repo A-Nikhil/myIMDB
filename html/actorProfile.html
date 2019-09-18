@@ -206,18 +206,18 @@
                     "Content-Type" : "application/json; charset=utf-8"
                 }
 			}).then((response) => {
-			    document.title = "response";
 			    response.json().then((returnData) => {
-			        // console.log(returnData.name);
+                    document.title = returnData.name;
+                    // console.log(returnData.name);
 			        name.text(returnData.name);
 			        mutedText.text(returnData.mutedText);
-			        name.text(returnData.dob);
-			        name.text(returnData.name);
-			        name.text(returnData.name);
-			        name.text(returnData.name);
-			        name.text(returnData.name);
-			        name.text(returnData.name);
-			        name.text(returnData.name);
+			        quotes.text(returnData.quotes);
+			        overview.text(returnData.overview);
+			        dob.text("Born : " + returnData.dob);
+			        years.text(returnData.years);
+			        education.html(returnData.education);
+			        career.html(returnData.career);
+			        personalLife.html(returnData.personalLife);
 				})
 			})
         };

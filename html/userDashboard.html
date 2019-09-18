@@ -89,6 +89,9 @@
 			</p>
 			<button class="btn btn-outline-dark">Add more languages</button>
 			<hr class="light text-left">
+			<div style="margin-top: 2rem; margin-bottom: 2rem" class="text-center">
+				<button class="btn btn-danger recommend-button" id="recommend-button" style="font-size: 28px">Let us recommend</button>
+			</div>
 		</div>
 		<div class="col-xs-0 col-sm-0 col-md-1 col-lg-2"></div>
 	</div>
@@ -124,13 +127,17 @@
 
         $('#username').text(user);
 
+        $('#recommend-button').click(() => {
+            window.location.href = "/engine";
+		});
+
         // get fields
         const hello = $('#hello'),
             // quotes = $('#quotes'),
             // by = $('#by'),
             movies = $('#shows-watched'),
-            languages = $('#interests'),
-            interests = $('#languages');
+            interests = $('#interests'),
+            languages = $('#languages');
 
         const setProfile = () => {
             fetch('/getUserProfile', {

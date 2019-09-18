@@ -43,7 +43,7 @@
 				<a class="nav-link" href="#">Contact Us</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="/login">Login</a>
+				<a class="nav-link" id="dash" href="/login">Login</a>
 			</li>
 		</ul>
 	</div>
@@ -92,7 +92,7 @@
 		</div>
 		<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-2">
 			<a href="#">
-				<button type="button" class="btn btn-outline-primary btn-lg">Login</button>
+				<button type="button" class="btn btn-outline-danger">Fire Up the Engine</button>
 			</a>
 		</div>
 	</div>
@@ -277,6 +277,15 @@
 </footer>
 <script>
 	$(document).ready( function () {
+		const dash = $('#dash');
+        const isUser = sessionStorage.getItem('currentUser');
+        // console.log(isUser);
+        // console.log(typeof isUser);
+        if (isUser !== null) {
+            dash.text(isUser);
+            dash.attr("href", "/userDashboard")
+        }
+
 		$('#benedict').click( () => {
 		    sessionStorage.setItem("actorName", "benedict");
 			window.location.href = "/actorProfile";

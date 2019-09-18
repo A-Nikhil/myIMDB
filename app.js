@@ -5,7 +5,8 @@ app.use(bodyParser.json());
 const path = require('path'),
     db = require("./db"),
     users = "users",
-    actors = "actors";
+    actors = "actors",
+    movies = "movies";
 
 app.use(express.static(path.join(__dirname, '')));
 
@@ -13,8 +14,9 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-app.get('/getTodos', (req, res) => {
-    db.getDB().collection(users).find({}).toArray((err, documents) => {
+
+app.get('/getMovieList', (req, res) => {
+    db.getDB().collection(movies).find({}).toArray((err, documents) => {
         if (err) {
             console.log(err);
         } else {
@@ -163,4 +165,8 @@ app.get('/signup_step3', (req, res) => {
 
 app.get('/userDashboard', (req, res) => {
     res.sendFile(path.join(__dirname, 'html/userDashboard.html'));
+});
+
+app.get('/engine', (req, res) => {
+    res.sendFile(path.join(__dirname, 'html/engine.html'));
 });

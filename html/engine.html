@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<link rel="stylesheet" href="../bootstrap-4.3.1-dist/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+	<style>
+		img.background-image {
+			width: 100%;
+			height: 100%;
+			/*opacity: 0.75;*/
+			-webkit-filter: blur(5px);
+		}
+
+		.jumbotron {
+			padding: 2px;
+			height: 80%;
+		}
+
+		.carousel-caption {
+			top: 40%;
+			transform: translateY(-40%);
+			bottom: initial;
+			-webkit-transform-style: preserve-3d;
+			transform-style: preserve-3d;
+			font-family: "Product Sans", sans-serif;
+			background-repeat: repeat-y;
+		}
+
+		.display-6 {
+			font-family: "Roboto", sans-serif;
+			font-size: 28px;
+			color: #000;
+		}
+
+		.card-title {
+			font-family: "SF Pro Rounded", sans-serif;
+		}
+
+		hr.light {
+			border-top: 2px solid gray;
+			width: 70%;
+			margin-left: 1px;
+
+		}
+
+		hr.damn {
+			margin-left: 1px;
+			margin-top: 10px;
+			margin-bottom: 10px;
+			width: 95%;
+		}
+
+		.runButton {
+			margin-top: 3rem;
+			margin-bottom: 5rem;
+		}
+
+		footer {
+			background-color: #3f3f3f;
+			color: #d5d5d5;
+			padding-top: 2rem;
+		}
+	</style>
+</head>
+<body>
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+	<a class="navbar-brand" href="#">
+		<img src="../img/logo2.png" alt="logo">
+	</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<form class="form-inline mr-auto mt-2 mt-lg-0">
+			<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+			<button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+		</form>
+		<ul class="navbar-nav my-2 my-lg-0">
+			<li class="nav-item">
+				<a class="nav-link" href="/">Home </a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#newArrivals">New Arrivals</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">Submit a suggestion</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">Contact Us</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link active" href="/userDashboard" id="username">Login</a>
+			</li>
+		</ul>
+	</div>
+</nav>
+<div class="jumbotron">
+	<div class="col-12">
+		<img src="../img/nerEngine.jpg" class="background-image" alt="pussy">
+	</div>
+	<div class="carousel-caption">
+		<p class="display-1">
+			Recommendation Engine
+		</p>
+		<p class="display-6">
+			Here to give you the best of choices
+		</p>
+	</div>
+</div>
+<div class="container-fluid details" id="initial">
+	<div class="row" style="margin-top: 3rem">
+		<div class="col-xs-0 col-sm-0 col-md-1 col-lg-2"></div>
+		<div class="col-xs-12 col-sm-12 col-md-10 col-lg-8">
+			<div>
+				<a class="welcome display-4 text-left">Your Interests are</a>
+				<hr class="light">
+				<p class="card-title display-6" id="interests1">
+
+				</p>
+			</div>
+			<hr class="damn">
+			<div>
+				<a class="welcome display-4 text-left">Preferred Languages</a>
+				<hr class="light">
+				<p class="card-title display-6" id="languages1">
+
+				</p>
+			</div>
+			<hr class="damn">
+			<div class="runButton text-center">
+				<button id="start" class="btn btn-outline-success">Run the Engine</button>
+			</div>
+		</div>
+		<div class="col-xs-0 col-sm-0 col-md-1 col-lg-2"></div>
+	</div>
+</div>
+
+<!-- After recommending -->
+<div class="container-fluid details" id="final" hidden>
+	<div class="row" style="margin-top: 3rem">
+		<div class="col-xs-0 col-sm-0 col-md-1 col-lg-2"></div>
+		<div class="col-xs-12 col-sm-12 col-md-10 col-lg-8">
+			<div>
+				<a class="welcome display-4 text-left">We recommend..</a>
+				<hr class="light">
+				<div class="card-title display-6" id="recommends">
+					<!-- Recommendations go here -->
+				</div>
+			</div>
+			<hr class="damn">
+			<button id="startAgain" class="btn btn-outline-success">Run Again?</button>
+		</div>
+		<div class="col-xs-0 col-sm-0 col-md-1 col-lg-2"></div>
+	</div>
+</div>
+
+<!--Footer-->
+<footer>
+	<div class="container-fluid">
+		<div class="row text-center">
+			<div class="col-4">
+				<h6>Our Offices </h6>
+				<hr class="damn">
+				<p>contact@wtw.com</p>
+				<p>Mountain View, California</p>
+				<p>CA - 90425</p>
+			</div>
+			<div class="col-4">
+			</div>
+			<div class="col-4">
+				<h6>Get the app</h6>
+				<hr class="damn text-center">
+				<img src="../img/google-button.png" style="width: 200px; height: auto" alt="play store"> <br><br>
+				<img src="../img/app-store.png" style="width: 200px; height: auto" alt="applestore">
+			</div>
+			<div class="col-12">
+				<hr class="damn">
+				<img src="../img/logo2.png" alt="..">
+			</div>
+		</div>
+	</div>
+</footer>
+
+<!-- Modal -->
+<div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+	 aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Setting up the results</h5>
+			</div>
+			<div class="modal-body" id="setCause">
+				<div class="spinner-border spinner-border-sm text-warning" role="status">
+					<span class="sr-only"></span>
+				</div>
+				Loading
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-outline-success" id="modalDismiss" data-dismiss="modal">Close
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+    $(document).ready(() => {
+        const currentUser = sessionStorage.getItem("currentUser");
+        $('#username').text(currentUser);
+        // const currentUser = "";
+        var number = 1;
+
+        const button = $('#start');
+        const modalDismiss = $('#modalDismiss');
+        const modal = $('#alertModal');
+        const cause = $('#setCause');
+        const recommends = $('#recommends');
+        const interests = $('#interests1');
+		const languages = $('#languages1');
+
+        button.click(() => {
+            modal.modal('show');
+            setTimeout(() => {
+                cause.html(`
+                <p style="color: forestgreen">
+                Completed !!
+                </p>
+                Click "Close" to view results
+                `);
+            }, 3000);
+        });
+
+        $('#startAgain').click(() => {
+            modal.modal('show');
+            recommends.empty();
+            number = 1;
+            setTimeout(() => {
+                cause.html(`
+                <p style="color: forestgreen">
+                Completed !!
+                </p>
+                Click "Close" to view results
+                `);
+            }, 3000);
+        });
+
+        const getMovieList = () => {
+            fetch('/getMovieList', {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8"
+                }
+            }).then((response) => {
+                response.json().then((returnData) => {
+                    // console.log(returnData.name);
+                    returnData.forEach((item) => {
+
+                        // matching interests
+                        var exists = false;
+                        var tempArray = giveString(item.genre);
+                        var interestsString = [];
+                        tempArray.forEach((interests) => {
+                            // console.log(interests);
+                            interArray.forEach((userInterests) => {
+                                if (interests.toLowerCase() === userInterests.toLowerCase()) {
+                                    if (jQuery.inArray(interests, interestsString) === -1) {
+                                        interestsString.push(interests);
+                                    }
+                                }
+                            })
+                        });
+
+                        // matching languages
+                        tempArray = giveString(item.language);
+                        var langString = [];
+                        tempArray.forEach((interests) => {
+                            // console.log(interests);
+                            langArray.forEach((userInterests) => {
+                                if (interests.toLowerCase() === userInterests.toLowerCase()) {
+                                    if (jQuery.inArray(interests, langString) === -1) {
+                                        langString.push(interests);
+                                    }
+                                }
+                            })
+                        });
+
+                        var interMatch = "";
+                        var weFoundThis = "";
+                        if (interestsString.length > 0) {
+                            interestsString.forEach((star) => {
+                                interMatch += star + ", ";
+                            });
+                            interMatch = interMatch.substr(0, interMatch.length - 2);
+                        }
+                        if (interMatch.length > 1) {
+                            exists = true;
+                            weFoundThis += "Interests Match : " + interMatch + "<br>";
+                        }
+
+                        var langMatch = "";
+                        if (langString.length > 0) {
+                            langString.forEach((star) => {
+                                langMatch += star + ", ";
+                            });
+                            langMatch = langMatch.substr(0, langMatch.length - 2);
+                        }
+                        if (langMatch.length > 1) {
+                            exists = true;
+                            weFoundThis += "Languages Match : " + langMatch + "<br>";
+                        }
+
+                        if (exists) {
+                            recommends.append(`
+                        <p>
+                        	<a class="movie-title" style="font-family: Roboto, sans-serif; font-size: 24px; color: black;">${number}. ${item.name}</a>
+                        	<br>
+                        	<a class="we-found-this" style="margin-left: 3px; font-family: -apple-system, sans-serif; color: #616A6B;font-style: italic; font-size: 12px;">${weFoundThis}</a>
+                        </p>
+                        <hr class="damn">
+                        `);
+                            number += 1;
+                        }
+                    })
+                })
+            });
+        };
+
+
+        var interArray = [];
+        var langArray = [];
+
+        // getProfile();
+        const getProfile = () => {
+            console.log(currentUser);
+            fetch('/getUserProfile', {
+                method: "POST",
+                body: JSON.stringify({
+                    username: currentUser
+                }),
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8"
+                }
+            }).then((response) => {
+                response.json().then((returnData) => {
+                    console.log(returnData.interests);
+                    var str = giveStringData(returnData.interests);
+                    console.log("Interests STR = " + str);
+                    interests.html(str.substr(0, str.length-2));
+                    console.log(returnData.languages);
+                    str = giveStringData(returnData.languages);
+                    console.log("Languages STR = " + str);
+                    languages.html(str.substr(0, str.length-2));
+
+                    interArray = giveString(returnData.interests);
+                    langArray = giveString(returnData.languages);
+                    console.log(interArray);
+                    console.log(langArray);
+                })
+            })
+        };
+
+        function giveString(str) {
+            var array = [];
+            var temp = "";
+            var char = "";
+            for (var i = 0; i < str.length; i++) {
+                char = str.charAt(i);
+                if (char === ';') {
+                    array.push(temp);
+                    temp = "";
+                } else {
+                    temp += char;
+                }
+            }
+            return array;
+        }
+
+        function giveStringData(str) {
+            var str1 = "", temp = "";
+            var char = "";
+            for(var i=0; i<str.length; i++) {
+                char = str.charAt(i);
+                if (char === ';') {
+                    str1 += temp + ", ";
+                    temp = "";
+                } else {
+                    temp += char;
+                }
+            }
+            return str1;
+        }
+
+        getProfile();
+
+        modalDismiss.click(() => {
+            $('#initial').attr("hidden", "hidden");
+            $('#final').removeAttr("hidden");
+            getMovieList();
+        });
+    });
+</script>
+</body>
+</html>
