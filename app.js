@@ -170,3 +170,8 @@ app.get('/userDashboard', (req, res) => {
 app.get('/engine', (req, res) => {
     res.sendFile(path.join(__dirname, 'html/engine.html'));
 });
+
+app.get('/logout', (req, res) => {
+    //Delete cookies
+    res.send("Logged out succesfully.");
+});
