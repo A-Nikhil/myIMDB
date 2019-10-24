@@ -6,15 +6,18 @@ const path = require('path'),
     db = require("./db"),
     users = "users",
     actors = "actors",
-    movies = "movies";
+    movies = "movies2";
 
 app.use(express.static(path.join(__dirname, '')));
 
+
+// ============= GET Methods =============
+// getting the main page
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-
+// getting a list of all movies
 app.get('/getMovieList', (req, res) => {
     db.getDB().collection(movies).find({}).toArray((err, documents) => {
         if (err) {
@@ -25,6 +28,8 @@ app.get('/getMovieList', (req, res) => {
     });
 });
 
+
+// POST methods
 app.post('/getActorProfile', (req, res) => {
     db.getDB().collection(actors).find({search: req.body.name}).toArray((err, document) => {
         if (err) {
@@ -106,6 +111,20 @@ app.post('/putUserLanguages', (req, res) => {
         )
 });
 
+app.post('/putDummyMovies', (req, res) => {
+    const userInput = req.body;
+    // noinspection JSIgnoredPromiseFromCall
+    db.getDB().collection('movies2').insertOne(userInput, (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.json({result: result, document: result.ops[0]});
+            console.log("inserted");
+        }
+    })
+});
+
+
 app.post('/', (req, res) => {
     const userInput = req.body;
     // noinspection JSIgnoredPromiseFromCall
@@ -142,7 +161,7 @@ db.connect((err) => {
 });
 
 
-// getting pages
+// ============= Getting WebPages =============
 app.get('/login', (req, res) => {
     res.sendFile(path.join(__dirname, 'html/login.html'));
 });
@@ -169,4 +188,12 @@ app.get('/userDashboard', (req, res) => {
 
 app.get('/engine', (req, res) => {
     res.sendFile(path.join(__dirname, 'html/engine.html'));
+});
+
+app.get('/inserter', (req, res) => {
+    res.sendFile(path.join(__dirname, 'html/puttingMovies.html'));
+});
+
+app.get('/engineRun', (req, res) => {
+    res.sendFile(path.join(__dirname, 'html/engineRun.html'));
 });
