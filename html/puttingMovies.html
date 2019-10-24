@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+<button id="start">Insert</button>
+<div id="display">
+
+</div>
+<script>
+    $(document).ready(() => {
+        let i = 1;
+        const head = "Movie ";
+
+        function decideCategories() {
+            let array = ["Drama", "Thriller", "Action", "SciFi", "Romance",
+                "Comedy", "Horror", "Crime", "Documentary", "Western", "Bollywood",
+                "War", "Epic", "Biographies"];
+            let number = Math.floor((Math.random() * 10) + 1);
+            let alreadyDone = [];
+            let categories = "";
+            var i;
+            for (i = 0; i < number; i++) {
+                let another = Math.floor((Math.random() * 14) + 1) - 1;
+                if (alreadyDone.indexOf(another) === -1) {
+                    categories += array[another] + ",";
+                    alreadyDone.push(another);
+                }
+            }
+            return categories;
+        }
+
+        function decideFields() {
+            var i;
+            var ratings = [];
+            for (i = 0; i < 6; i++) {
+                let number = Math.floor((Math.random() * 5) + 1);
+                ratings.push(number);
+            }
+            return ratings;
+        }
+
+        function putMovies() {
+            let alpha = decideCategories();
+            let beta = decideFields();
+            fetch('/putDummyMovies', {
+                method: "POST",
+                body: JSON.stringify({
+                    name: head + i,
+                    categories: alpha,
+                    critics: beta[0],
+                    direction: beta[1],
+                    sound: beta[2],
+                    cinematography: beta[3],
+                    plot: beta[4],
+                    userReviews: beta[5]
+                }),
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8"
+                }
+            }).then(() => {
+                let str = `<p>Movie Name : ${head + i} <br> Categories : ${alpha} <br>
+							<ul>
+							<li>critics: ${beta[0]}</li>
+                    <li>direction: ${beta[1]}</li>
+                    <li>sound: ${beta[2]},</li>
+                    <li>cinematography: ${beta[3]},</li>
+                    <li>plot: ${beta[4]},</li>
+                    <li>userReviews: ${beta[5]}</li>
+							</ul></p>`;
+                $('#display').append(str);
+                i++;
+                if (i !== 100) {
+                    putMovies();
+                }
+            })
+        }
+
+        $('#start').click(() => {
+            putMovies();
+        });
+    })
+</script>
+</body>
+</html>

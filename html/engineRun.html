@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<link rel="stylesheet" href="../bootstrap-4.3.1-dist/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+</head>
+<body>
+<input type="text" id="categories">
+<button class="btn btn-outline-success" id="runEngine">Fire Up</button>
+
+<script>
+    $(document).ready(() => {
+
+        /*
+        const categoriesText = $('#categories').val();
+        const critics = $('#critics').val();
+        const direction = $('#direction').val();
+        const sound = $('#sound').val();
+        const cinematography = $('#cinematography').val();
+        const plot = $('#plot').val();
+        const userReviews = $('#userReviews').val();
+		*/
+
+        const categoriesText = "Comedy Bollywood";
+        const critics = 3;
+        const direction = 2;
+        const sound = 3;
+        const cinematography = 4;
+        const plot = 2;
+        const userReviews = 1;
+        let categories = categoriesText.split(" ");
+
+        let movieMap = {};
+
+        function getMovieList() {
+            fetch('/getMovieList', {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8"
+                }
+            }).then((response) => {
+                response.json().then((movieList) => {
+                    movieList.forEach((item) => {
+                        // console.log(movieList);
+                        let finalScore = 0, categoryScore = 0, ratingScore = 0;
+                        for (var i = 0; i < categories.length; i++) {
+                            let given = item.categories.toLowerCase().split(",");
+                            given.pop(); // removing the last element
+                            if (jQuery.inArray(categories[i].toLowerCase(), given) !== -1) {
+                                categoryScore++;
+                            }
+                        }
+                        finalScore += categoryScore;
+
+                        // exact match will get a score of +2
+                        // above match will get a score of +1
+                        if (critics === item.critics) {
+                            ratingScore += 2;
+                        } else if (critics > item.critics) {
+                            ratingScore += 1;
+                        }
+
+                        if (direction === item.direction) {
+                            ratingScore += 2;
+                        } else if (direction > item.direction) {
+                            ratingScore += 1;
+                        }
+
+                        if (sound === item.sound) {
+                            ratingScore += 2;
+                        } else if (sound > item.sound) {
+                            ratingScore += 1;
+                        }
+
+                        if (cinematography === item.cinematography) {
+                            ratingScore += 2;
+                        } else if (cinematography > item.cinematography) {
+                            ratingScore += 1;
+                        }
+
+                        if (plot === item.plot) {
+                            ratingScore += 2;
+                        } else if (plot > item.plot) {
+                            ratingScore += 1;
+                        }
+
+                        if (userReviews === item.userReviews) {
+                            ratingScore += 2;
+                        } else if (userReviews > item.userReviews) {
+                            ratingScore += 1;
+                        }
+
+                        finalScore += ratingScore;
+
+                        movieMap[item.name] = finalScore;
+                        // console.log("Category" + categoryScore);
+                        // console.log("Rating" + ratingScore);
+                    });
+                    console.log(movieMap);
+                });
+            });
+        }
+
+        $('#runEngine').click(() => {
+            getMovieList();
+        });
+    });
+</script>
+</body>
+</html>
