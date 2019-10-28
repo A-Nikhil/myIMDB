@@ -1,0 +1,127 @@
+img.background-image {
+    width: 100%;
+    height: 100%;
+    /*opacity: 0.75;*/
+    -webkit-filter: blur(5px);
+}
+
+.jumbotron {
+    padding: 2px;
+    height: 80%;
+}
+
+.carousel-caption {
+    top: 40%;
+    transform: translateY(-40%);
+    bottom: initial;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    font-family: "Product Sans", sans-serif;
+    background-repeat: repeat-y;
+}
+
+#carouselSub {
+    font-family: "Roboto", sans-serif;
+    font-size: 28px;
+    color: #fff;
+}
+
+.display-6 {
+    font-family: "Roboto", sans-serif;
+    font-size: 28px;
+    color: #000;
+}
+
+.card-title {
+    font-family: "SF Pro Rounded", sans-serif;
+}
+
+hr.light {
+    border-top: 2px solid gray;
+    width: 70%;
+    margin-left: 1px;
+
+}
+
+hr.damn {
+    margin-left: 1px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 30%;
+}
+
+.runButton {
+    margin-top: 3rem;
+    margin-bottom: 5rem;
+}
+
+footer {
+    background-color: #3f3f3f;
+    color: #d5d5d5;
+    padding-top: 2rem;
+}
+
+label:not(.sliderLabels){
+    margin-top: 30px;
+    margin-left: 15px;
+}
+
+.breaker {
+    margin-top: 4rem;
+}
+
+input.custom-range {
+    margin-right: 3rem;
+    width: 40%;
+    height: fit-content;
+}
+
+label.sliderLabels {
+    font-weight: bold;
+    font-size: 18px;
+    margin-right: 2rem;
+    width: 15%;
+}
+
+p.rangeValue {
+    display: inline;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* This is for aligning range input and text*/
+.custom-range,
+.rangeValue,
+.sliderLabels {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+div.ratingCategory {
+    margin-top: 30px;
+}
+
+#start {
+    width: 100%;
+    height: 100%;
+}
+
+small {
+    font-style: italic;
+}
+
+small.rangeHint {
+    margin-left: 2rem;
+    font-size: 14px;
+    /*overflow-wrap: normal;*/
+    word-break: break-all;
+}
+
+div.rangeValue {
+    width: 3%;
+}
+
+div.runButton {
+    width: 50%;
+    margin-left: 15%;
+}
