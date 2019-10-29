@@ -30,62 +30,96 @@
 </div>
 <div class="container-fluid surrounding">
 	<div class="row text-center">
-		<div class="col-lg-6 col-md-2 col-sm-1 col-xs-1 text-left">
+		<div class="col-sm-0 col-md-1 col-lg-2 text-left">
 			<a tabindex="0" class="btn btn-lg btn-light" role="button" data-toggle="popover" data-trigger="focus"
 			   title="About the image" data-content='Sherlock TV-Series'>
 				<i class="fas fa-eye"></i>
 			</a>
 		</div>
-		<div class="col-lg-5 col-md-8 col-sm-10 col-xs-10 signup position-static">
-			<h5 class="text-center">Mention few languages you usually watch movies in</h5>
+		<div class="col-sm-12 col-md-10 col-lg-8 signup position-static">
+			<h5 class="text-center">Select the factors you look for</h5>
 			<hr class="light">
 			<form action="" method="post" id="form">
-				<div class="btn-group-toggle col-lg-12 col-md-4" data-toggle="buttons">
-					<label class="btn btn-outline-dark" id="label1">
-						<input type="checkbox" name="check" id="chkbox0" value="Hindi"> Hindi
-					</label>
-					<label class="btn btn-outline-dark" id="label2">
-						<input type="checkbox" id="chkbox1" name="check" value="English"> English
-					</label>
-					<label class="btn btn-outline-dark" id="label3">
-						<input type="checkbox" id="chkbox2" name="check" value="Telugu"> Telugu
-					</label>
-					<label class="btn btn-outline-dark" id="label4">
-						<input type="checkbox" id="chkbox3" name="check" value="Tamil"> Tamil
-					</label>
-					<br>
-					<label class="btn btn-outline-dark" id="label5">
-						<input type="checkbox" id="chkbox4" name="check" value="Malayalam"> Malayalam
-					</label>
-					<label class="btn btn-outline-dark" id="label6">
-						<input type="checkbox" id="chkbox5" name="check" value="Bengali"> Bengali
-					</label>
-					<label class="btn btn-outline-dark" id="label7">
-						<input type="checkbox" id="chkbox6" name="check" value="French"> French
-					</label>
-					<br>
-					<label class="btn btn-outline-dark" id="label8">
-						<input type="checkbox" id="chkbox7" name="check" value="German"> German
-					</label>
-					<label class="btn btn-outline-dark" id="label9">
-						<input type="checkbox" id="chkbox8" name="check" value="Spanish">
-						Spanish
-					</label>
-					<label class="btn btn-outline-dark" id="label10">
-						<input type="checkbox" id="chkbox9" name="check" value="Italian"> Italian
-					</label>
-					<label class="btn btn-outline-dark" id="label11">
-						<input type="checkbox" id="chkbox10" name="check" value="Russian">
-						Russian
-					</label>
-					<br>
+
+				<!-- Critics -->
+				<div class="ratingCategory">
+					<label for="critics" class="sliderLabels">Critics</label>
+					<input type="range" onchange="changeLabel(this, 1)" class="custom-range" value="0" min="0" max="5"
+						   step="0.5"
+						   id="critics">
+					<div class="rangeValue">
+						<p id="range1" class="rangeValue">0</p>
+					</div>
 				</div>
-				<input type="submit" class="btn-outline-primary btn">
+
+				<!-- Direction -->
+				<div class="ratingCategory">
+					<label for="direction" class="sliderLabels">Direction</label>
+					<input type="range" onchange="changeLabel(this, 2)" class="custom-range" value="0" min="0" max="5"
+						   step="0.5"
+						   id="direction">
+					<div class="rangeValue">
+						<p id="range2" class="rangeValue">0</p>
+					</div>
+				</div>
+
+				<!-- Sound -->
+				<div class="ratingCategory">
+					<label for="sound" class="sliderLabels">Sound</label>
+					<input type="range" onchange="changeLabel(this, 3)" class="custom-range" value="0" min="0" max="5"
+						   step="0.5"
+						   id="sound">
+					<div class="rangeValue">
+						<p id="range3" class="rangeValue">0</p>
+					</div>
+				</div>
+
+				<!-- Cinematography -->
+				<div class="ratingCategory">
+					<label for="cinematography" class="sliderLabels">Cinematography</label>
+					<input type="range" onchange="changeLabel(this, 4)" class="custom-range" value="0" min="0" max="5"
+						   step="0.5"
+						   id="cinematography">
+					<div class="rangeValue">
+						<p id="range4" class="rangeValue">0</p>
+					</div>
+				</div>
+
+				<!-- Plot -->
+				<div class="ratingCategory">
+					<label for="plot" class="sliderLabels">Plot</label>
+					<input type="range" onchange="changeLabel(this, 5)" class="custom-range" value="0" min="0" max="5"
+						   step="0.5"
+						   id="plot">
+					<div class="rangeValue">
+						<p id="range5" class="rangeValue">0</p>
+					</div>
+				</div>
+
+				<!-- User reviews -->
+				<div class="ratingCategory">
+					<label for="userReviews" class="sliderLabels">User Reviews</label>
+					<input type="range" onchange="changeLabel(this, 6)" class="custom-range" value="0" min="0" max="5"
+						   step="0.5"
+						   id="userReviews">
+					<div class="rangeValue">
+						<p id="range6" class="rangeValue">0</p>
+					</div>
+				</div>
+				<input type="submit" class="btn-outline-primary btn" value="Submit">
 			</form>
 		</div>
 	</div>
-	<div class="col-lg-1 col-md-2 col-sm-1 col-xs-1"></div>
+	<div class="col-lg-2 col-md-2 col-sm-1 col-xs-1"></div>
 </div>
+
+<script>
+    function changeLabel(object, number) {
+        var rangeValueColor = 'range' + number;
+        document.getElementById(rangeValueColor).innerHTML = object.value;
+    }
+</script>
+
 <script>
 
     $(document).ready(() => {
@@ -93,36 +127,28 @@
         // About the image
         $('[data-toggle="popover"]').popover();
 
+        const critics = parseInt($('#critics').val());
+        const direction = parseInt($('#direction').val());
+        const sound = parseInt($('#sound').val());
+        const cinematography = parseInt($('#cinematography').val());
+        const plot = parseInt($('#plot').val());
+        const userReviews = parseInt($('#userReviews').val());
+
+
         // getting current user
         const currentUser = sessionStorage.getItem("currentUser");
 
-        let id = "";
-        const setProfile = () => {
-            fetch('/getUserProfile', {
-                method: "POST",
-                body: JSON.stringify({
-                    username: currentUser
-                }),
-                headers: {
-                    "Content-Type": "application/json; charset=utf-8"
-                }
-            }).then((response) => {
-                response.json()
-                    .then((returnData) => {
-                        // console.log(returnData.name);
-                        id = returnData._id;
-                        console.log(id);
-                        console.log(typeof id);
-                    })
-            })
-        };
-
         const insertLanguages = () => {
-            fetch(`/putUserLanguages`, {
+            fetch(`/putUserRatings`, {
                 method: "POST",
                 body: JSON.stringify({
                     username: currentUser,
-                    languages: choiceString
+					critics: critics,
+					direction: direction,
+					sound: sound,
+					cinematography: cinematography,
+					plot: plot,
+					userReviews: userReviews
                 }),
                 headers: {
                     "Content-Type": "application/json; charset=utf-8"
@@ -150,7 +176,6 @@
                 }
             });
             console.log(choiceString);
-            setProfile();
             insertLanguages();
         });
     });

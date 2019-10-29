@@ -91,15 +91,28 @@ app.post('/putUserInterests', (req, res) => {
         )
 });
 
-
-app.post('/putUserLanguages', (req, res) => {
+app.post('/putUserRatings', (req, res) => {
     const username = req.body.username;
-    const langs = req.body.languages;
+    const critics = req.body.critics;
+    const direction = req.body.direction;
+    const sound = req.body.sound;
+    const cinematography = req.body.cinematography;
+    const plot = req.body.plot;
+    const userReviews = req.body.userReviews;
     // noinspection JSIgnoredPromiseFromCall
     db.getDB().collection(users)
         .findOneAndUpdate(
             {username: username},
-            {$set: {languages: langs}},
+            {
+                $set: {
+                    critics: critics,
+                    direction: direction,
+                    sound: sound,
+                    cinematography: cinematography,
+                    plot: plot,
+                    userReviews: userReviews,
+                }
+            },
             {returnOriginal: false},
             (err, result) => {
                 if (err) {
@@ -110,6 +123,7 @@ app.post('/putUserLanguages', (req, res) => {
             }
         )
 });
+
 
 app.post('/putDummyMovies', (req, res) => {
     const userInput = req.body;
