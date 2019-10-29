@@ -6,7 +6,7 @@ const path = require('path'),
     db = require("./db"),
     users = "users",
     actors = "actors",
-    movies = "movies2";
+    movies = "movies3";
 
 app.use(express.static(path.join(__dirname, '')));
 
@@ -128,7 +128,7 @@ app.post('/putUserRatings', (req, res) => {
 app.post('/putDummyMovies', (req, res) => {
     const userInput = req.body;
     // noinspection JSIgnoredPromiseFromCall
-    db.getDB().collection('movies2').insertOne(userInput, (err, result) => {
+    db.getDB().collection('movies3').insertOne(userInput, (err, result) => {
         if (err) {
             console.log(err);
         } else {
