@@ -126,3 +126,14 @@ div.runButton {
     width: 50%;
     margin-left: 15%;
 }
+
+a.subHeading {
+    font-size: 22px;
+    vertical-align: central;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+div.Movie {
+    margin-top: 3rem;
+}
