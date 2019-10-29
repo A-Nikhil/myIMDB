@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Title</title>
+	<title>Recommendation Engine</title>
 	<link rel="stylesheet" href="../bootstrap-4.3.1-dist/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-	<script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+	<script src="https://use.fontawesome.com/releases/v5.11.1/js/all.js"></script>
 	<link rel="stylesheet" href="../css/engine.css">
 </head>
 <body>
@@ -30,7 +30,7 @@
 				<a class="nav-link" href="/">Home </a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="#newArrivals">New Arrivals</a>
+				<a class="nav-link" href="">New Arrivals</a>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link" href="#">Submit a suggestion</a>
@@ -52,59 +52,269 @@
 		<p class="display-1">
 			Recommendation Engine
 		</p>
-		<p class="display-6">
+		<p class="display-6" id="carouselSub">
 			Here to give you the best of choices
 		</p>
 	</div>
 </div>
-<div class="container-fluid details" id="initial">
-	<div class="row" style="margin-top: 3rem">
-		<div class="col-xs-0 col-sm-0 col-md-1 col-lg-2"></div>
-		<div class="col-xs-12 col-sm-12 col-md-10 col-lg-8">
-			<div>
-				<a class="welcome display-4 text-left">Your Interests are</a>
-				<hr class="light">
-				<p class="card-title display-6" id="interests1">
 
-				</p>
-			</div>
-			<hr class="damn">
-			<div>
-				<a class="welcome display-4 text-left">Preferred Languages</a>
+<div class="container-fluid" id="preResult">
+	<div class="row">
+		<div class="col-sm-0 col-md-1 col-lg-2"></div>
+		<div class="col-sm-12 col-md-10 col-lg-10">
+			<form id="form" action="" method="post">
+				<p class="display-4">Decide for yourself </p>
 				<hr class="light">
-				<p class="card-title display-6" id="languages1">
-
-				</p>
-			</div>
-			<hr class="damn">
-			<div class="runButton text-center">
-				<button id="start" class="btn btn-outline-success">Run the Engine</button>
-			</div>
-		</div>
-		<div class="col-xs-0 col-sm-0 col-md-1 col-lg-2"></div>
-	</div>
-</div>
-
-<!-- After recommending -->
-<div class="container-fluid details" id="final" hidden>
-	<div class="row" style="margin-top: 3rem">
-		<div class="col-xs-0 col-sm-0 col-md-1 col-lg-2"></div>
-		<div class="col-xs-12 col-sm-12 col-md-10 col-lg-8">
-			<div>
-				<a class="welcome display-4 text-left">We recommend..</a>
-				<hr class="light">
-				<div class="card-title display-6" id="recommends">
-					<!-- Recommendations go here -->
+				<h4>Select categories</h4>
+				<hr class="damn">
+				<div class="btn-group-toggle" data-toggle="buttons">
+					<label class="btn btn-outline-dark" id="label1">
+						<input type="checkbox" name="check" id="chkbox0" value="Drama"> Drama
+					</label>
+					<label class="btn btn-outline-dark" id="label2">
+						<input type="checkbox" id="chkbox1" name="check" value="Thriller"> Thriller
+					</label>
+					<label class="btn btn-outline-dark" id="label3">
+						<input type="checkbox" id="chkbox2" name="check" value="Action"> Action
+					</label>
+					<label class="btn btn-outline-dark" id="label4">
+						<input type="checkbox" id="chkbox3" name="check" value="SciFi"> SciFi
+					</label>
+					<label class="btn btn-outline-dark" id="label5">
+						<input type="checkbox" id="chkbox4" name="check" value="Romance"> Romance
+					</label>
+					<br/>
+					<label class="btn btn-outline-dark" id="label6">
+						<input type="checkbox" id="chkbox5" name="check" value="Comedy"> Comedy
+					</label>
+					<label class="btn btn-outline-dark" id="label7">
+						<input type="checkbox" id="chkbox6" name="check" value="Horror"> Horror
+					</label>
+					<label class="btn btn-outline-dark" id="label8">
+						<input type="checkbox" id="chkbox7" name="check" value="Crime"> Crime
+					</label>
+					<label class="btn btn-outline-dark" id="label9">
+						<input type="checkbox" id="chkbox8" name="check" value="Documentary">
+						Documentary
+					</label>
+					<label class="btn btn-outline-dark" id="label10">
+						<input type="checkbox" id="chkbox9" name="check" value="Western"> Western
+					</label>
+					<br/>
+					<label class="btn btn-outline-dark" id="label11">
+						<input type="checkbox" id="chkbox10" name="check" value="Bollywood">
+						Bollywood
+					</label>
+					<label class="btn btn-outline-dark" id="label12">
+						<input type="checkbox" id="chkbox11" name="check" value="War"> War
+					</label>
+					<label class="btn btn-outline-dark" id="label13">
+						<input type="checkbox" id="chkbox12" name="check" value="Epic"> Epic
+					</label>
+					<label class="btn btn-outline-dark" id="label14">
+						<input type="checkbox" id="chkbox13" name="check" value="Biographies">
+						Biographies
+					</label>
+					<br>
 				</div>
+				<div class="breaker"></div>
+				<div>
+					<h4>Select Factors</h4>
+					<hr class="damn">
+					<small><i>0 = you don't want it to be counted</i></small>
+					<br/>
+					<!-- Critics -->
+					<div class="ratingCategory">
+						<label for="critics" class="sliderLabels">Critics</label>
+						<input type="range" value="0" onchange="changeLabel(this, 1)" class="custom-range" min="0"
+							   max="5"
+							   step="0.5"
+							   id="critics">
+						<div class="rangeValue">
+							<p id="range1" class="rangeValue">0</p>
+						</div>
+						<small class="rangeHint" id="rangeHint1"></small>
+					</div>
+
+					<!-- Direction -->
+					<div class="ratingCategory">
+						<label for="direction" class="sliderLabels">Direction</label>
+						<input type="range" value="0" onchange="changeLabel(this, 2)" class="custom-range" min="0"
+							   max="5"
+							   step="0.5"
+							   id="direction">
+						<div class="rangeValue">
+							<p id="range2" class="rangeValue">0</p>
+						</div>
+						<small class="rangeHint" id="rangeHint2"></small>
+					</div>
+
+					<!-- Sound -->
+					<div class="ratingCategory">
+						<label for="sound" class="sliderLabels">Sound</label>
+						<input type="range" value="0" onchange="changeLabel(this, 3)" class="custom-range" min="0"
+							   max="5"
+							   step="0.5"
+							   id="sound">
+						<div class="rangeValue">
+							<p id="range3" class="rangeValue">0</p>
+						</div>
+						<small class="rangeHint" id="rangeHint3"></small>
+					</div>
+
+					<!-- Cinematography -->
+					<div class="ratingCategory">
+						<label for="cinematography" class="sliderLabels">Cinematography</label>
+						<input type="range" value="0" onchange="changeLabel(this, 4)" class="custom-range" min="0"
+							   max="5"
+							   step="0.5"
+							   id="cinematography">
+						<div class="rangeValue">
+							<p id="range4" class="rangeValue">0</p>
+						</div>
+						<small class="rangeHint" id="rangeHint4"></small>
+					</div>
+
+					<!-- Plot -->
+					<div class="ratingCategory">
+						<label for="plot" class="sliderLabels">Plot</label>
+						<input type="range" value="0" onchange="changeLabel(this, 5)" class="custom-range" min="0"
+							   max="5"
+							   step="0.5"
+							   id="plot">
+						<div class="rangeValue">
+							<p id="range5" class="rangeValue">0</p>
+						</div>
+						<small class="rangeHint" id="rangeHint5"></small>
+					</div>
+
+					<!-- User reviews -->
+					<div class="ratingCategory">
+						<label for="userReviews" class="sliderLabels">User Reviews</label>
+						<input type="range" value="0" onchange="changeLabel(this, 6)" class="custom-range" min="0"
+							   max="5"
+							   step="0.5"
+							   id="userReviews">
+						<div class="rangeValue">
+							<p id="range6" class="rangeValue">0</p>
+						</div>
+						<small class="rangeHint" id="rangeHint6"></small>
+					</div>
+
+					<!-- Run the Engine -->
+					<div class="runButton">
+						<input id="start" type="submit" class="btn btn-outline-success" value="Run the Engine">
+					</div>
+				</div>
+			</form>
+
+			<!-- Let user run with his own params -->
+			<div class="text-center col-8">
+				<h3>-------------- OR --------------</h3>
 			</div>
-			<hr class="damn">
-			<button id="startAgain" class="btn btn-outline-success">Run Again?</button>
+			<div class="text-center col-8" id="noLogin">
+				<div class="breaker"></div>
+				<h4>You should be logged in to use your data</h4>
+			</div>
+			<div id="noLogin2" hidden>
+				<form action="" method="post" id="form2">
+					<div class="breaker"></div>
+					<p class="display-4">Let us use your choices </p>
+					<hr class="light">
+					<div>
+						<a class="welcome h4 text-left">Your Interests are</a>
+						<hr class="damn">
+						<p class="card-title display-6" id="interests1">
+
+						</p>
+					</div>
+					<hr class="damn">
+					<div class="breaker"></div>
+					<div id="languages1">
+						<a class="welcome h4 text-left">Factors you look for</a>
+						<hr class="damn">
+						<small><i>0 = you don't want it to be counted</i></small>
+
+					</div>
+					<div class="choices">
+					</div>
+					<div class="runButton">
+						<input id="start2" type="submit" class="btn btn-outline-success" value="Run the Engine">
+					</div>
+				</form>
+			</div>
 		</div>
-		<div class="col-xs-0 col-sm-0 col-md-1 col-lg-2"></div>
+		<div class="col-sm-0 col-md-1 col-lg-0"></div>
 	</div>
 </div>
+
+<!--<button id="test">Test</button>-->
+
+<!-- After result -->
+<div class="container-fluid" hidden id="postResult">
+	<div class="row" id="anotherSet">
+		<div class="col-sm-0 col-md-1 col-lg-2"></div>
+		<div class="col-sm-12 col-md-10 col-lg-10" id="oneTen">
+			<p class="display-4">Here are the recommendations</p>
+			<hr class="light">
+			<div id="firstTen">
+
+			</div>
+			<div id="secondTen" hidden>
+
+			</div>
+			<div id="thirdTen" hidden>
+
+			</div>
+			<div class="breaker"></div>
+			<nav aria-label="Page navigation example">
+				<ul class="pagination">
+					<li class="page-item active" id="onePage"><a class="page-link" href="#anotherSet" id="one">1</a>
+					</li>
+					<li class="page-item" id="twoPage"><a class="page-link" href="#anotherSet" id="two">2</a></li>
+					<li class="page-item" id="threePage"><a class="page-link" href="#anotherSet" id="three">3</a></li>
+				</ul>
+			</nav>
+		</div>
+		<div class="col-sm-0 col-md-1 col-lg-0"></div>
+	</div>
+</div>
+
+<!-- Pagination Script -->
+<script>
+    $(document).ready(() => {
+        $('#one').click(() => {
+            $('#firstTen').removeAttr("hidden");
+            $('#secondTen').attr("hidden", "hidden");
+            $('#thirdTen').attr("hidden", "hidden");
+            $('#onePage').attr("class", "page-item active");
+            $('#twoPage').attr("class", "page-item");
+            $('#threePage').attr("class", "page-item");
+        });
+
+        $('#two').click(() => {
+            $('#secondTen').removeAttr("hidden");
+            $('#firstTen').attr("hidden", "hidden");
+            $('#thirdTen').attr("hidden", "hidden");
+            $('#twoPage').attr("class", "page-item active");
+            $('#onePage').attr("class", "page-item");
+            $('#threePage').attr("class", "page-item");
+        });
+
+        $('#three').click(() => {
+            $('#thirdTen').removeAttr("hidden");
+            $('#secondTen').attr("hidden", "hidden");
+            $('#firstTen').attr("hidden", "hidden");
+            $('#threePage').attr("class", "page-item active");
+            $('#twoPage').attr("class", "page-item");
+            $('#onePage').attr("class", "page-item");
+        });
+
+    });
+</script>
 
 <!--Footer-->
+<div class="breaker"></div>
 <footer>
 	<div class="container-fluid">
 		<div class="row text-center">
@@ -153,133 +363,258 @@
 	</div>
 </div>
 
+<!-- Script for slider bars -->
+<!--suppress EqualityComparisonWithCoercionJS -->
+<script>
+    function changeLabel(object, number) {
+        var rangeValueColor = 'range' + number;
+        var rangeHint = 'rangeHint' + number;
+        var value = object.value;
+        if (value == 0) {
+            document.getElementById(rangeValueColor).setAttribute("style", "color: black");
+            document.getElementById(rangeHint).setAttribute("style", "color: black");
+            document.getElementById(rangeHint).innerHTML = "Fine! We won't count this";
+        } else if (value == 0.5 || value == 1 || value == 1.5) {
+            document.getElementById(rangeValueColor).setAttribute("style", "color: green");
+            document.getElementById(rangeHint).setAttribute("style", "color: green");
+            document.getElementById(rangeHint).innerHTML = "Will serve you everything.. ~99% movie matches";
+        } else if (value == 2 || value == 2.5) {
+            document.getElementById(rangeValueColor).setAttribute("style", "color: #B9B117");
+            document.getElementById(rangeHint).setAttribute("style", "color: #B9B117");
+            document.getElementById(rangeHint).innerHTML = "Good choice. maybe.. ~80% movie matches";
+        } else if (value == 3 || value == 3.5) {
+            document.getElementById(rangeValueColor).setAttribute("style", "color: #DB6C10");
+            document.getElementById(rangeHint).setAttribute("style", "color: #DB6C10");
+            document.getElementById(rangeHint).innerHTML = "Pretty good taste.. ~40% movie matches";
+        } else if (value == 3 || value == 3.5) {
+            document.getElementById(rangeValueColor).setAttribute("style", "color: #BB270A");
+            document.getElementById(rangeHint).setAttribute("style", "color: #BB270A");
+            document.getElementById(rangeHint).innerHTML = "A man of culture.. ~15% movie matches";
+        } else if (value == 3 || value == 3.5) {
+            document.getElementById(rangeValueColor).setAttribute("style", "color: #FF2A00");
+            document.getElementById(rangeHint).setAttribute("style", "color: #FF2A00");
+            document.getElementById(rangeHint).innerHTML = "Pretty rare.. ~5% movie matches";
+        }
+        document.getElementById(rangeValueColor).innerHTML = object.value;
+        object.setAttribute("value", object.value);
+
+    }
+</script>
+
+<!-- Script for Languages and Preference -->
+
+<!-- script for matching -->
 <script>
     $(document).ready(() => {
-        const currentUser = sessionStorage.getItem("currentUser");
-        $('#username').text(currentUser);
-        // const currentUser = "";
-        var number = 1;
 
-        const button = $('#start');
-        const modalDismiss = $('#modalDismiss');
-        const modal = $('#alertModal');
-        const cause = $('#setCause');
-        const recommends = $('#recommends');
-        const interests = $('#interests1');
-		const languages = $('#languages1');
+        let categories = [];
 
-        button.click(() => {
-            modal.modal('show');
-            setTimeout(() => {
-                cause.html(`
-                <p style="color: forestgreen">
-                Completed !!
-                </p>
-                Click "Close" to view results
-                `);
-            }, 3000);
+        $('#form').submit((e) => {
+            e.preventDefault();
+
+            $('input[type=checkbox]').each(function () {
+                if (this.checked) {
+                    console.log($(this).val());
+                    categories.push($(this).val());
+                }
+            });
+
+            const critics = parseFloat($('#critics').val());
+            const direction = parseFloat($('#direction').val());
+            const sound = parseFloat($('#sound').val());
+            const cinematography = parseFloat($('#cinematography').val());
+            const plot = parseFloat($('#plot').val());
+            const userReviews = parseFloat($('#userReviews').val());
+            getMovieList(critics, direction, sound, cinematography, plot, userReviews, categories);
         });
 
-        $('#startAgain').click(() => {
-            modal.modal('show');
-            recommends.empty();
-            number = 1;
-            setTimeout(() => {
-                cause.html(`
-                <p style="color: forestgreen">
-                Completed !!
-                </p>
-                Click "Close" to view results
-                `);
-            }, 3000);
+        $('#form2').submit((e) => {
+            e.preventDefault();
+            const critics = parseFloat($('#Critics2').val());
+            const direction = parseFloat($('#Direction2').val());
+            const sound = parseFloat($('#Sound2').val());
+            const cinematography = parseFloat($('#Cinematography2').val());
+            const plot = parseFloat($('#Plot2').val());
+            const userReviews = parseFloat($('#UserReviews2').val());
+            getMovieList(critics, direction, sound, cinematography, plot, userReviews);
         });
 
-        const getMovieList = () => {
+        let movieMap = [];
+
+        function getMovieList(critics, direction, sound, cinematography, plot, userReviews, categories) {
             fetch('/getMovieList', {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json; charset=utf-8"
                 }
             }).then((response) => {
-                response.json().then((returnData) => {
-                    // console.log(returnData.name);
-                    returnData.forEach((item) => {
-
-                        // matching interests
-                        var exists = false;
-                        var tempArray = giveString(item.genre);
-                        var interestsString = [];
-                        tempArray.forEach((interests) => {
-                            // console.log(interests);
-                            interArray.forEach((userInterests) => {
-                                if (interests.toLowerCase() === userInterests.toLowerCase()) {
-                                    if (jQuery.inArray(interests, interestsString) === -1) {
-                                        interestsString.push(interests);
-                                    }
-                                }
-                            })
-                        });
-
-                        // matching languages
-                        tempArray = giveString(item.language);
-                        var langString = [];
-                        tempArray.forEach((interests) => {
-                            // console.log(interests);
-                            langArray.forEach((userInterests) => {
-                                if (interests.toLowerCase() === userInterests.toLowerCase()) {
-                                    if (jQuery.inArray(interests, langString) === -1) {
-                                        langString.push(interests);
-                                    }
-                                }
-                            })
-                        });
-
-                        var interMatch = "";
-                        var weFoundThis = "";
-                        if (interestsString.length > 0) {
-                            interestsString.forEach((star) => {
-                                interMatch += star + ", ";
-                            });
-                            interMatch = interMatch.substr(0, interMatch.length - 2);
+                response.json().then((movieList) => {
+                    movieList.forEach((item) => {
+                        // console.log(movieList);
+                        let finalScore = 0, categoryScore = 0, ratingScore = 0;
+                        for (var i = 0; i < categories.length; i++) {
+                            let given = item.categories.toLowerCase().split(",");
+                            given.pop(); // removing the last element
+                            if (jQuery.inArray(categories[i].toLowerCase(), given) !== -1) {
+                                categoryScore++;
+                            }
                         }
-                        if (interMatch.length > 1) {
-                            exists = true;
-                            weFoundThis += "Interests Match : " + interMatch + "<br>";
+                        finalScore += categoryScore;
+
+                        // exact match will get a score of +2
+                        // above match will get a score of +1
+                        if (critics === item.critics) {
+                            ratingScore += 2;
+                        } else if (critics > item.critics) {
+                            ratingScore += 1;
                         }
 
-                        var langMatch = "";
-                        if (langString.length > 0) {
-                            langString.forEach((star) => {
-                                langMatch += star + ", ";
-                            });
-                            langMatch = langMatch.substr(0, langMatch.length - 2);
-                        }
-                        if (langMatch.length > 1) {
-                            exists = true;
-                            weFoundThis += "Languages Match : " + langMatch + "<br>";
+                        if (direction === item.direction) {
+                            ratingScore += 2;
+                        } else if (direction > item.direction) {
+                            ratingScore += 1;
                         }
 
-                        if (exists) {
-                            recommends.append(`
-                        <p>
-                        	<a class="movie-title" style="font-family: Roboto, sans-serif; font-size: 24px; color: black;">${number}. ${item.name}</a>
-                        	<br>
-                        	<a class="we-found-this" style="margin-left: 3px; font-family: -apple-system, sans-serif; color: #616A6B;font-style: italic; font-size: 12px;">${weFoundThis}</a>
-                        </p>
-                        <hr class="damn">
-                        `);
-                            number += 1;
+                        if (sound === item.sound) {
+                            ratingScore += 2;
+                        } else if (sound > item.sound) {
+                            ratingScore += 1;
                         }
-                    })
-                })
+
+                        if (cinematography === item.cinematography) {
+                            ratingScore += 2;
+                        } else if (cinematography > item.cinematography) {
+                            ratingScore += 1;
+                        }
+
+                        if (plot === item.plot) {
+                            ratingScore += 2;
+                        } else if (plot > item.plot) {
+                            ratingScore += 1;
+                        }
+
+                        if (userReviews === item.userReviews) {
+                            ratingScore += 2;
+                        } else if (userReviews > item.userReviews) {
+                            ratingScore += 1;
+                        }
+
+                        finalScore += ratingScore;
+
+                        var obj = {name: item.name, score: finalScore, entity: item};
+                        movieMap.push(obj);
+                        // console.log("Category = " + categoryScore);
+                        // console.log("Rating = " + ratingScore);
+                    });
+                    // console.log(movieMap); // unsorted
+
+                    movieMap.sort(function (a, b) {
+                        return b.score - a.score;
+                    });
+
+                    console.log(movieMap);
+
+                    displayMovies(movieMap);
+                });
             });
-        };
+        }
 
+        function displayMovies(movieMap) {
+            console.log("Displaying Movies");
 
-        var interArray = [];
-        var langArray = [];
+            $('#preResult').attr("hidden", "hidden");
+            $('#postResult').removeAttr("hidden");
+            var inserted = "";
+            for (var i = 0; i < 30; i++) {
 
-        // getProfile();
+                if (i >= 0 && i <= 9) {
+                    inserted = $('#firstTen');
+                } else if (i >= 10 && i <= 19) {
+                    inserted = $('#secondTen');
+                } else {
+                    inserted = $('#thirdTen');
+                }
+
+                var obj = movieMap[i];
+                var name = obj.entity.name;
+                var categories = obj.entity.categories;
+
+                // build rating stars
+                var critics = buildRating(parseFloat(obj.entity.critics));
+                var direction = buildRating(parseFloat(obj.entity.direction));
+                var sound = buildRating(parseFloat(obj.entity.sound));
+                var cinematography = buildRating(parseFloat(obj.entity.cinematography));
+                var plot = buildRating(parseFloat(obj.entity.plot));
+                var userReviews = buildRating(parseFloat(obj.entity.userReviews));
+
+                var str = buildTemplate(name, categories, critics, direction, sound, cinematography, plot, userReviews);
+
+                inserted.append(str);
+            }
+        }
+
+        function buildTemplate(name, categories, critics, direction, sound, cinematography, plot, userReviews) {
+            return `<div class="Movie">
+					<h4>${name}</h4>
+					<hr class="damn">
+					<p class="categoriesDisplay">
+						<a class="subHeading">Categories : </a>
+						${categories}
+					</p>
+					<p class="Ratings">
+						<a class="subHeading">Critics: </a>
+							${critics}
+						<br/>
+						<a class="subHeading">Direction: </a>
+							${direction}
+						<br/>
+						<a class="subHeading">Sound: </a>
+							${sound}
+						<br/>
+						<a class="subHeading">Cinematography: </a>
+							${cinematography}
+						<br/>
+						<a class="subHeading">Plot: </a>
+							${plot}
+						<br/>
+						<a class="subHeading">User Reviews: </a>
+							${userReviews}
+						<br/>
+					</p>
+				</div>`;
+        }
+
+        function buildRating(rating) {
+            var str = ``;
+            var integer = parseInt(rating);
+            var floater = parseFloat(rating);
+            var remainder;
+            for (var i = 0; i < integer; i++) {
+                str += `<i class="fas fa-star"></i>`;
+            }
+
+            if (floater - integer !== 0) {
+                str += `<i class="fas fa-star-half-alt"></i>`;
+                remainder = integer + 1;
+            } else {
+                remainder = integer;
+            }
+
+            for (i = remainder; i < 5; i++) {
+                str += `<i class="far fa-star"></i>`;
+            }
+
+            return str;
+        }
+    });
+</script>
+
+<script>
+    $(document).ready(() => {
+
+        const interests = $('#interests1');
+        const languages = $('#languages1');
+
         const getProfile = () => {
             console.log(currentUser);
             fetch('/getUserProfile', {
@@ -295,40 +630,35 @@
                     console.log(returnData.interests);
                     var str = giveStringData(returnData.interests);
                     console.log("Interests STR = " + str);
-                    interests.html(str.substr(0, str.length-2));
-                    console.log(returnData.languages);
-                    str = giveStringData(returnData.languages);
-                    console.log("Languages STR = " + str);
-                    languages.html(str.substr(0, str.length-2));
+                    interests.html(str.substr(0, str.length - 2));
 
-                    interArray = giveString(returnData.interests);
-                    langArray = giveString(returnData.languages);
-                    console.log(interArray);
-                    console.log(langArray);
+                    buildSlider("Critics", "Critics", returnData.critics);
+                    buildSlider("Direction", "Direction", returnData.direction);
+                    buildSlider("Sound", "Sound", returnData.sound);
+                    buildSlider("Cinematography", "Cinematography", returnData.cinematography);
+                    buildSlider("Plot", "Plot", returnData.plot);
+                    buildSlider("User Reviews", "UserReviews", returnData.userReviews);
                 })
             })
         };
 
-        function giveString(str) {
-            var array = [];
-            var temp = "";
-            var char = "";
-            for (var i = 0; i < str.length; i++) {
-                char = str.charAt(i);
-                if (char === ';') {
-                    array.push(temp);
-                    temp = "";
-                } else {
-                    temp += char;
-                }
-            }
-            return array;
+        function buildSlider(value, id, number) {
+            var str = `<div class="ratingCategory">
+							<label for="${value}" class="sliderLabels">${value}</label>
+							<input type="range" value="${number}" disabled class="custom-range" min="0" max="5"
+							   step="0.5"
+							   id="${id}2">
+							<div class="rangeValue">
+							<p id="range4" class="rangeValue">${number}</p>
+							</div>
+						</div>`;
+            $('#languages1').append(str);
         }
 
         function giveStringData(str) {
             var str1 = "", temp = "";
             var char = "";
-            for(var i=0; i<str.length; i++) {
+            for (var i = 0; i < str.length; i++) {
                 char = str.charAt(i);
                 if (char === ';') {
                     str1 += temp + ", ";
@@ -340,13 +670,20 @@
             return str1;
         }
 
-        getProfile();
+        const currentUser = sessionStorage.getItem("currentUser");
+        console.log(typeof currentUser);
+        // const currentUser = 'starboy';
+        // var currentUser;
 
-        modalDismiss.click(() => {
-            $('#initial').attr("hidden", "hidden");
-            $('#final').removeAttr("hidden");
-            getMovieList();
-        });
+        if (currentUser !== "null" && currentUser !== undefined) {
+            $('#username').text(currentUser);
+            $('#noLogin').attr("hidden", "hidden");
+            $('#noLogin2').removeAttr("hidden");
+            getProfile();
+        } else {
+            $('#username').text("Login");
+        }
+
     });
 </script>
 </body>

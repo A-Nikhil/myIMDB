@@ -70,6 +70,18 @@ li {
     padding-bottom: 5px;
 }
 
+a.subHeading {
+    font-size: 22px;
+    vertical-align: central;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.fa-star,
+.fa-star-half-alt {
+    color: darkgoldenrod;
+}
+
 @-webkit-keyframes recommend {
     20% {
         background-color: #4A53E1;

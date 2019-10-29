@@ -62,17 +62,17 @@
 	<div class="row">
 		<div class="col-xs-0 col-sm-0 col-md-1 col-lg-2"></div>
 		<div class="col-xs-12 col-sm-12 col-md-10 col-lg-8">
-			<p class="display-4 text-left">
-				You recently watched
-			</p>
-			<hr class="damn">
-			<p id="shows-watched">
-				Diatrias potus in caelos!
-			</p>
-			<button class="btn btn-outline-dark">Add more movies</button>
-			<hr class="light text-left">
+			<!--			<p class="display-4 text-left">-->
+			<!--				You recently watched-->
+			<!--			</p>-->
+			<!--			<hr class="damn">-->
+			<!--			<p id="shows-watched">-->
+			<!--				Diatrias potus in caelos!-->
+			<!--			</p>-->
+			<!--			<button class="btn btn-outline-dark">Add more movies</button>-->
+			<!--			<hr class="light text-left">-->
 			<p class="display-4 text-left base-text">
-				Your Interests
+				Your Genre
 			</p>
 			<hr class="damn">
 			<p id="interests">
@@ -81,16 +81,18 @@
 			<button class="btn btn-outline-dark">Add more interests</button>
 			<hr class="light text-left">
 			<p class="display-4 text-left base-text">
-				Languages of interest
+				Interest Elements
 			</p>
 			<hr class="damn">
-			<p id="languages">
-				Quirky deaths lead to the energy.
-			</p>
+			<div id="languages">
+
+			</div>
 			<button class="btn btn-outline-dark">Add more languages</button>
 			<hr class="light text-left">
 			<div style="margin-top: 2rem; margin-bottom: 2rem" class="text-center">
-				<button class="btn btn-danger recommend-button" id="recommend-button" style="font-size: 28px">Let us recommend</button>
+				<button class="btn btn-danger recommend-button" id="recommend-button" style="font-size: 28px">Let us
+					recommend
+				</button>
 			</div>
 		</div>
 		<div class="col-xs-0 col-sm-0 col-md-1 col-lg-2"></div>
@@ -124,12 +126,13 @@
 <script>
     $(document).ready(() => {
         const user = sessionStorage.getItem('currentUser');
+        // const user = 'starboy';
 
         $('#username').text(user);
 
         $('#recommend-button').click(() => {
             window.location.href = "/engine";
-		});
+        });
 
         // get fields
         const hello = $('#hello'),
@@ -152,27 +155,87 @@
                 response.json()
                     .then((returnData) => {
                         // console.log(returnData.name);
-						hello.text("Hello, " + returnData.firstName);
-						if (returnData.movies.length <= 2) {
-						    movies.text("You haven't watched any movies yet");
-						}
-						console.log(returnData.interests);
-						var str = giveString(returnData.interests);
-                        interests.text(str.substr(0, str.length-2));
-                        console.log(returnData.languages);
-                        str = giveString(returnData.languages);
-                        languages.text(str.substr(0, str.length-2));
+                        hello.text("Hello, " + returnData.firstName);
+                        if (returnData.movies.length <= 2) {
+                            movies.text("You haven't watched any movies yet");
+                        }
+                        console.log(returnData.interests);
+                        var str = giveString(returnData.interests);
+                        interests.text(str.substr(0, str.length - 2));
+
+                        console.log(returnData);
+                        console.log(returnData.plot);
+
+                        var critics = buildRating(parseFloat(returnData.critics));
+                        var direction = buildRating(parseFloat(returnData.direction));
+                        var sound = buildRating(parseFloat(returnData.sound));
+                        var cinematography = buildRating(parseFloat(returnData.cinematography));
+                        var plot = buildRating(parseFloat(returnData.plot));
+                        var userReviews = buildRating(parseFloat(returnData.userReviews));
+
+                        console.log(plot);
+
+                        var ratingStr = buildTemplate(critics, direction, sound, cinematography, plot, userReviews);
+                        languages.append(ratingStr);
                     })
-            })
+            });
+
+            function buildTemplate(critics, direction, sound, cinematography, plot, userReviews) {
+                return `
+					<p class="Ratings">
+						<a class="subHeading">Critics: </a>
+							${critics}
+						<br/>
+						<a class="subHeading">Direction: </a>
+							${direction}
+						<br/>
+						<a class="subHeading">Sound: </a>
+							${sound}
+						<br/>
+						<a class="subHeading">Cinematography: </a>
+							${cinematography}
+						<br/>
+						<a class="subHeading">Plot: </a>
+							${plot}
+						<br/>
+						<a class="subHeading">User Reviews: </a>
+							${userReviews}
+						<br/>
+					</p>`;
+            }
+
+            function buildRating(rating) {
+                var str = ``;
+                var integer = parseInt(rating);
+                var floater = parseFloat(rating);
+                var remainder;
+                for (var i = 0; i < integer; i++) {
+                    str += `<i class="fas fa-star"></i>`;
+                }
+
+                if (floater - integer !== 0) {
+                    str += `<i class="fas fa-star-half-alt"></i>`;
+                    remainder = integer + 1;
+                } else {
+                    remainder = integer;
+                }
+
+                for (i = remainder; i < 5; i++) {
+                    str += `<i class="far fa-star"></i>`;
+                }
+
+                return str;
+            }
         };
 
         setProfile();
+
         // const number = Math.floor(Math.random() * 10) + 1;
 
         function giveString(str) {
             var str1 = "", temp = "";
             var char = "";
-            for(var i=0; i<str.length; i++) {
+            for (var i = 0; i < str.length; i++) {
                 char = str.charAt(i);
                 if (char === ';') {
                     str1 += temp + ", ";

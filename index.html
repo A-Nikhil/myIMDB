@@ -92,7 +92,7 @@
 		</div>
 		<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-2">
 			<a href="#">
-				<button type="button" class="btn btn-outline-danger">Fire Up the Engine</button>
+				<button type="button" class="btn btn-outline-danger" id="engine">Fire Up the Engine</button>
 			</a>
 		</div>
 	</div>
@@ -157,18 +157,6 @@
 	</div>
 	<hr class="my-4">
 </div>
-
-<!--- Two Column Section -->
-
-
-<!--- Fixed background -->
-
-
-<!--- Emoji Section -->
-
-
-<!--- Meet the team -->
-
 
 <!--- Cards -->
 <div class="container-fluid padding">
@@ -279,9 +267,10 @@
 	$(document).ready( function () {
 		const dash = $('#dash');
         const isUser = sessionStorage.getItem('currentUser');
+        console.log(isUser);
         // console.log(isUser);
         // console.log(typeof isUser);
-        if (isUser !== null) {
+        if (isUser !== null && isUser !== undefined) {
             dash.text(isUser);
             dash.attr("href", "/userDashboard")
         }
@@ -297,6 +286,11 @@
         $('#emilia').click( () => {
             sessionStorage.setItem("actorName", "emilia");
             window.location.href = "/actorProfile";
+        });
+
+        $('#engine').click( () => {
+            sessionStorage.setItem("currentUser", isUser);
+            window.location.href = "/engine";
         });
 	});
 </script>
