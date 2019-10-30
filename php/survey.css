@@ -1,0 +1,85 @@
+hr.light {
+    border-top: 2px solid gray;
+    width: 70%;
+    margin-left: 1px;
+
+}
+
+hr.damn {
+    margin-left: 1px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 30%;
+}
+
+div.breaker {
+    margin-top: 4rem;
+}
+
+input.custom-range {
+    margin-right: 3rem;
+    width: 40%;
+    height: fit-content;
+}
+
+label.sliderLabels {
+    font-weight: bold;
+    font-size: 18px;
+    margin-right: 2rem;
+    width: 15%;
+}
+
+p.rangeValue {
+    display: inline;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* This is for aligning range input and text*/
+.custom-range,
+.rangeValue,
+.sliderLabels {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+
+div.ratingCategory {
+    margin-top: 30px;
+}
+
+input[type=radio] {
+    margin-left: 2rem;
+}
+
+td.main {
+    vertical-align: top;
+    width: 25%;
+    margin-right: 8rem;
+}
+
+input[type=text],
+input[type=email] {
+    width: 50%;
+}
+
+footer {
+    background-color: #3f3f3f;
+    color: #d5d5d5;
+    padding-top: 2rem;
+}
+
+hr.footerLight {
+    border-top: 1px solid #d5d5d5;
+    width: 75%;
+}
+
+div.radioCheck {
+    display: inline;
+    margin-right: 2rem;
+    vertical-align: center;
+}
+
+textarea {
+    width: 50%;
+}
