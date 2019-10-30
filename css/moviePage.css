@@ -1,0 +1,44 @@
+hr.damn {
+    margin-left: 1px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 30%;
+}
+
+hr.footerLight {
+    border-top: 1px solid #d5d5d5;
+    width: 75%;
+}
+
+footer {
+    background-color: #3f3f3f;
+    color: #d5d5d5;
+    padding-top: 2rem;
+    margin-top: 3rem;
+}
+
+.breaker {
+    margin-top: 4rem;
+}
+
+a.subHeading {
+    font-size: 22px;
+    vertical-align: central;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+div.Movie {
+    margin-top: 3rem;
+}
+
+a.listCategories {
+    font-size: 22px;
+    vertical-align: central;
+    font-weight: bold;
+}
+
+label {
+    margin-top: 30px;
+    margin-right: 15px;
+}

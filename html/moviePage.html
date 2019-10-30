@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Recommendation Engine</title>
+	<link rel="stylesheet" href="../bootstrap-4.3.1-dist/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="https://use.fontawesome.com/releases/v5.11.1/js/all.js"></script>
+	<link rel="stylesheet" href="../css/moviePage.css">
+	<link rel="icon" href="../img/icon.png">
+</head>
+<body>
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+	<a class="navbar-brand" href="#">
+		<img src="../img/logo2.png" alt="logo">
+	</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<form class="form-inline mr-auto mt-2 mt-lg-0">
+			<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+			<button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+		</form>
+		<ul class="navbar-nav my-2 my-lg-0">
+			<li class="nav-item">
+				<a class="nav-link" href="\">Home <span class="sr-only">(current)</span></a>
+			</li>
+			<li class="nav-item active">
+				<a class="nav-link" href="\movies">Movies</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="\engine">Recommendations</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="http://localhost/WtWSurvey/survey.php">Take a Survey</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="dash" href="\login">Login</a>
+			</li>
+		</ul>
+	</div>
+</nav>
+
+<div class="jumbotron text-center">
+	<p id="MovieName" class="display-3">
+	</p>
+</div>
+
+<div class="container-fluid" id="postResult">
+	<div class="row" id="anotherSet">
+		<div class="col-sm-0 col-md-1 col-lg-2"></div>
+		<div class="col-sm-12 col-md-10 col-lg-10">
+			<div>
+				<h3>Categories</h3>
+				<hr class="damn">
+				<div class="btn-group-toggle col-lg-12 col-md-4" data-toggle="buttons" id="categories">
+<!--					<label class="btn btn-outline-dark" id="label1">-->
+<!--						<input type="checkbox" name="check" id="chkbox0" value="Drama"> Drama-->
+<!--					</label>-->
+				</div>
+			</div>
+			<div class="breaker"></div>
+			<div id="ratings">
+				<h3>Ratings</h3>
+				<hr class="damn">
+			</div>
+		</div>
+
+	</div>
+</div>
+
+
+<!--Footer-->
+<div class="breaker"></div>
+<footer>
+	<div class="container-fluid">
+		<div class="row text-center">
+			<div class="col-4">
+				<h6>Our Offices </h6>
+				<hr class="footerLight">
+				<p>contact@wtw.com</p>
+				<p>Mountain View, California</p>
+				<p>CA - 90425</p>
+			</div>
+			<div class="col-4">
+			</div>
+			<div class="col-4">
+				<h6>Get the app</h6>
+				<hr class="footerLight text-center">
+				<img src="../img/google-button.png" style="width: 200px; height: auto" alt="play store"> <br><br>
+				<img src="../img/app-store.png" style="width: 200px; height: auto" alt="applestore">
+			</div>
+			<div class="col-12">
+				<hr class="footerLight">
+				<img src="../img/logo2.png" alt="..">
+			</div>
+		</div>
+	</div>
+</footer>
+
+<script>
+    $(document).ready(() => {
+        var getUrlParameter = function getUrlParameter(sParam) {
+            var sPageURL = window.location.search.substring(1),
+                sURLVariables = sPageURL.split('&'),
+                sParameterName,
+                i;
+
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+
+                if (sParameterName[0] === sParam) {
+                    return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+                }
+            }
+        };
+
+        var movie = getUrlParameter('id');
+        var regexp = /[0-9]/;
+        var result = regexp.exec(movie);
+        var position = movie.indexOf(result[0]);
+        // console.log(position);
+        // console.log(parseInt(movie.substr(position)));
+
+        movie = "Movie " + movie.substr(position);
+        console.log(movie);
+
+        setMovieData();
+
+        function setMovieData() {
+            fetch('/getMovieData', {
+                method: "POST",
+                body: JSON.stringify({
+                    name: movie
+                }),
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8"
+                }
+            }).then((response) => {
+                response.json().then((item) => {
+                    // title
+					document.title = item.name;
+
+					// jumbotron
+					$('#MovieName').html(item.name);
+
+                    // categories
+					// console.log(item.categories);
+					var str1 = item.categories;
+                    str1 = str1.split(",");
+                    str1.pop();
+                    console.log(str1);
+                    var categories = "";
+
+                    for (var i=1; i<=str1.length; i++) {
+                        categories += categoryTemplate(str1[i-1], i);
+					}
+
+                    $('#categories').append(categories);
+
+                    // ratings
+                    var critics = buildRating(parseFloat(item.critics));
+                    var direction = buildRating(parseFloat(item.direction));
+                    var sound = buildRating(parseFloat(item.sound));
+                    var cinematography = buildRating(parseFloat(item.cinematography));
+                    var plot = buildRating(parseFloat(item.plot));
+                    var userReviews = buildRating(parseFloat(item.userReviews));
+                    var str = `<p class="Ratings">
+						<a class="subHeading">Critics: </a>
+							${critics}
+						<br/>
+						<a class="subHeading">Direction: </a>
+							${direction}
+						<br/>
+						<a class="subHeading">Sound: </a>
+							${sound}
+						<br/>
+						<a class="subHeading">Cinematography: </a>
+							${cinematography}
+						<br/>
+						<a class="subHeading">Plot: </a>
+							${plot}
+						<br/>
+						<a class="subHeading">User Reviews: </a>
+							${userReviews}
+						<br/>
+					</p>`;
+
+                    $('#ratings').append(str);
+                })
+            })
+        }
+
+        function buildRating(rating) {
+            var str = ``;
+            var integer = parseInt(rating);
+            var floater = parseFloat(rating);
+            var remainder;
+            for (var i = 0; i < integer; i++) {
+                str += `<i class="fas fa-star"></i>`;
+            }
+
+            if (floater - integer !== 0) {
+                str += `<i class="fas fa-star-half-alt"></i>`;
+                remainder = integer + 1;
+            } else {
+                remainder = integer;
+            }
+
+            for (i = remainder; i < 5; i++) {
+                str += `<i class="far fa-star"></i>`;
+            }
+
+            return str;
+        }
+
+        function categoryTemplate(name, number) {
+			var str = `
+					<label class="btn btn-info" id="${name}">
+						<input type="checkbox" name="check" id="${name}" value="${name}"> ${name}
+					</label>`;
+			if (number % 5 === 0) {
+			    str += `<br/>`;
+			}
+			return str;
+        }
+
+    });
+</script>
+
+</body>
+</html>
