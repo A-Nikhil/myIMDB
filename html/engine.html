@@ -9,6 +9,7 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 	<script src="https://use.fontawesome.com/releases/v5.11.1/js/all.js"></script>
 	<link rel="stylesheet" href="../css/engine.css">
+	<link rel="icon" href="../img/icon.png">
 </head>
 <body>
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
@@ -27,26 +28,27 @@
 		</form>
 		<ul class="navbar-nav my-2 my-lg-0">
 			<li class="nav-item">
-				<a class="nav-link" href="/">Home </a>
+				<a class="nav-link" href="\">Home <span class="sr-only">(current)</span></a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="">New Arrivals</a>
+				<a class="nav-link" href="\movies">Movies</a>
+			</li>
+			<li class="nav-item active">
+				<a class="nav-link" href="#">Recommendations</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="#">Submit a suggestion</a>
+				<a class="nav-link" href="http://localhost/WtWSurvey/survey.php">Take a Survey</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="#">Contact Us</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link active" href="/userDashboard" id="username">Login</a>
+				<a class="nav-link" id="dash" href="\login">Login</a>
 			</li>
 		</ul>
 	</div>
 </nav>
+
 <div class="jumbotron">
 	<div class="col-12">
-		<img src="../img/nerEngine.jpg" class="background-image" alt="pussy">
+		<img src="../img/nerEngine.jpg" class="background-image" alt="carouselImage">
 	</div>
 	<div class="carousel-caption">
 		<p class="display-1">
@@ -248,8 +250,6 @@
 	</div>
 </div>
 
-<!--<button id="test">Test</button>-->
-
 <!-- After result -->
 <div class="container-fluid" hidden id="postResult">
 	<div class="row" id="anotherSet">
@@ -320,7 +320,7 @@
 		<div class="row text-center">
 			<div class="col-4">
 				<h6>Our Offices </h6>
-				<hr class="damn">
+				<hr class="footerLight">
 				<p>contact@wtw.com</p>
 				<p>Mountain View, California</p>
 				<p>CA - 90425</p>
@@ -329,12 +329,12 @@
 			</div>
 			<div class="col-4">
 				<h6>Get the app</h6>
-				<hr class="damn text-center">
+				<hr class="footerLight text-center">
 				<img src="../img/google-button.png" style="width: 200px; height: auto" alt="play store"> <br><br>
 				<img src="../img/app-store.png" style="width: 200px; height: auto" alt="applestore">
 			</div>
 			<div class="col-12">
-				<hr class="damn">
+				<hr class="footerLight">
 				<img src="../img/logo2.png" alt="..">
 			</div>
 		</div>
@@ -364,33 +364,32 @@
 </div>
 
 <!-- Script for slider bars -->
-<!--suppress EqualityComparisonWithCoercionJS -->
 <script>
     function changeLabel(object, number) {
         var rangeValueColor = 'range' + number;
         var rangeHint = 'rangeHint' + number;
-        var value = object.value;
-        if (value == 0) {
+        var value = parseFloat(object.value);
+        if (value === 0) {
             document.getElementById(rangeValueColor).setAttribute("style", "color: black");
             document.getElementById(rangeHint).setAttribute("style", "color: black");
             document.getElementById(rangeHint).innerHTML = "Fine! We won't count this";
-        } else if (value == 0.5 || value == 1 || value == 1.5) {
+        } else if (value === 0.5 || value === 1 || value === 1.5) {
             document.getElementById(rangeValueColor).setAttribute("style", "color: green");
             document.getElementById(rangeHint).setAttribute("style", "color: green");
             document.getElementById(rangeHint).innerHTML = "Will serve you everything.. ~99% movie matches";
-        } else if (value == 2 || value == 2.5) {
+        } else if (value === 2 || value === 2.5) {
             document.getElementById(rangeValueColor).setAttribute("style", "color: #B9B117");
             document.getElementById(rangeHint).setAttribute("style", "color: #B9B117");
             document.getElementById(rangeHint).innerHTML = "Good choice. maybe.. ~80% movie matches";
-        } else if (value == 3 || value == 3.5) {
+        } else if (value === 3 || value === 3.5) {
             document.getElementById(rangeValueColor).setAttribute("style", "color: #DB6C10");
             document.getElementById(rangeHint).setAttribute("style", "color: #DB6C10");
             document.getElementById(rangeHint).innerHTML = "Pretty good taste.. ~40% movie matches";
-        } else if (value == 3 || value == 3.5) {
+        } else if (value === 4 || value === 4.5) {
             document.getElementById(rangeValueColor).setAttribute("style", "color: #BB270A");
             document.getElementById(rangeHint).setAttribute("style", "color: #BB270A");
             document.getElementById(rangeHint).innerHTML = "A man of culture.. ~15% movie matches";
-        } else if (value == 3 || value == 3.5) {
+        } else if (value === 5) {
             document.getElementById(rangeValueColor).setAttribute("style", "color: #FF2A00");
             document.getElementById(rangeHint).setAttribute("style", "color: #FF2A00");
             document.getElementById(rangeHint).innerHTML = "Pretty rare.. ~5% movie matches";
@@ -430,13 +429,18 @@
 
         $('#form2').submit((e) => {
             e.preventDefault();
+            const categoriesText = $('#interests1').val().toLowerCase().split(',');
+            categoriesText.pop();
+            categoriesText.forEach((item) => {
+                categories.push(item);
+			});
             const critics = parseFloat($('#Critics2').val());
             const direction = parseFloat($('#Direction2').val());
             const sound = parseFloat($('#Sound2').val());
             const cinematography = parseFloat($('#Cinematography2').val());
             const plot = parseFloat($('#Plot2').val());
             const userReviews = parseFloat($('#UserReviews2').val());
-            getMovieList(critics, direction, sound, cinematography, plot, userReviews);
+            getMovieList(critics, direction, sound, cinematography, plot, userReviews, categories);
         });
 
         let movieMap = [];
@@ -554,12 +558,16 @@
         }
 
         function buildTemplate(name, categories, critics, direction, sound, cinematography, plot, userReviews) {
+            var regexp = /[0-9]/;
+            var result = regexp.exec(name);
+            var position = name.indexOf(result[0]);
+            var url = "movie" + name.substr(position);
             return `<div class="Movie">
-					<h4>${name}</h4>
+					<h4><a href="http://localhost:27017/moviePage?id=${url}">${name}</a></h4>
 					<hr class="damn">
 					<p class="categoriesDisplay">
 						<a class="subHeading">Categories : </a>
-						${categories}
+						<a class="listCategories">${categories} </a>
 					</p>
 					<p class="Ratings">
 						<a class="subHeading">Critics: </a>
@@ -616,7 +624,6 @@
         const languages = $('#languages1');
 
         const getProfile = () => {
-            console.log(currentUser);
             fetch('/getUserProfile', {
                 method: "POST",
                 body: JSON.stringify({
@@ -672,10 +679,12 @@
 
         const currentUser = sessionStorage.getItem("currentUser");
         console.log(typeof currentUser);
+        console.log(currentUser);
+        console.log(currentUser !== null);
         // const currentUser = 'starboy';
         // var currentUser;
 
-        if (currentUser !== "null" && currentUser !== undefined) {
+        if (currentUser !== "null" && currentUser !== null && currentUser !== undefined) {
             $('#username').text(currentUser);
             $('#noLogin').attr("hidden", "hidden");
             $('#noLogin2').removeAttr("hidden");

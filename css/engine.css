@@ -79,8 +79,8 @@ input.custom-range {
 label.sliderLabels {
     font-weight: bold;
     font-size: 18px;
-    margin-right: 2rem;
-    width: 15%;
+    margin-right: 1rem;
+    width: 10%;
 }
 
 p.rangeValue {
@@ -136,4 +136,15 @@ a.subHeading {
 
 div.Movie {
     margin-top: 3rem;
+}
+
+a.listCategories {
+    font-size: 22px;
+    vertical-align: central;
+    font-weight: bold;
+}
+
+hr.footerLight {
+    border-top: 1px solid #d5d5d5;
+    width: 75%;
 }

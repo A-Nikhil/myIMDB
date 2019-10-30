@@ -2,14 +2,16 @@ const MongoClient = require("mongodb").MongoClient;
 const ObjectID = require("mongodb").ObjectID;
 const dbName = "myIMDB";
 const url = "mongodb://localhost:27017";
-const  mongoOptions = {useUnifiedTopology : true, useNewUrlParser : true};
-
-const state = {
-    db : null
+const mongoOptions = {
+    useUnifiedTopology: true, useNewUrlParser: true
 };
 
-const connect = (cb) =>  {
-    if(state.db) {
+const state = {
+    db: null
+};
+
+const connect = (cb) => {
+    if (state.db) {
         cb();
     } else {
         MongoClient.connect(url, mongoOptions, (err, client) => {

@@ -8,6 +8,8 @@ const path = require('path'),
     actors = "actors",
     movies = "movies3";
 
+const session = require('express-session');
+
 app.use(express.static(path.join(__dirname, '')));
 
 
@@ -60,17 +62,25 @@ app.post('/getUserProfile', (req, res) => {
     }
 );
 
-// app.put('/:id', (req, res) => {
-//     const todoID = req.params.id;
-//     const userInput = req.body;
-//     db.getDB().collection(collection).findOneAndUpdate({_id: db.getPrimaryKey(todoID)}, {$set: {todo: userInput.todo}}, {returnOriginal: false}, (err, result) => {
-//         if (err) {
-//             console.log(err);
-//         } else {
-//             res.json(result);
-//         }
-//     })
-// });
+app.post('/getMovieData', (req, res) => {
+        db.getDB().collection(movies)
+            .find({name: req.body.name})
+            .toArray((err, document) => {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        if (document[0] === undefined) {
+                            console.log("A falsis, onus salvus calceus.");
+                            document = [{errorStatus: 1}];
+                        }
+                        // console.log(document);
+                        // console.log(document[0]);
+                        res.json(document[0]);
+                    }
+                }
+            )
+    }
+);
 
 app.post('/putUserInterests', (req, res) => {
     const username = req.body.username;
@@ -166,6 +176,7 @@ app.delete('/:id', (req, res) => {
 db.connect((err) => {
     if (err) {
         console.log("Unable to connect");
+        console.log(err);
         process.exit(1);
     } else {
         app.listen(27017, () => {
@@ -210,4 +221,12 @@ app.get('/inserter', (req, res) => {
 
 app.get('/engineRun', (req, res) => {
     res.sendFile(path.join(__dirname, 'html/engine.html'));
+});
+
+app.get('/moviePage', (req, res) => {
+    res.sendFile(path.join(__dirname, 'html/moviePage.html'));
+});
+
+app.get('/movies', (req, res) => {
+    res.sendFile(path.join(__dirname, 'html/moviePage.html'));
 });
