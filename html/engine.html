@@ -433,7 +433,7 @@
             categoriesText.pop();
             categoriesText.forEach((item) => {
                 categories.push(item);
-			});
+            });
             const critics = parseFloat($('#Critics2').val());
             const direction = parseFloat($('#Direction2').val());
             const sound = parseFloat($('#Sound2').val());
@@ -467,40 +467,53 @@
 
                         // exact match will get a score of +2
                         // above match will get a score of +1
-                        if (critics === item.critics) {
-                            ratingScore += 2;
-                        } else if (critics > item.critics) {
-                            ratingScore += 1;
+                        // 0 will not be counted
+                        if (critics !== 0.0) {
+                            if (critics === item.critics) {
+                                ratingScore += 2;
+                            } else if (critics < item.critics) {
+                                ratingScore += 2 + (item.critics - critics);
+                            }
                         }
 
-                        if (direction === item.direction) {
-                            ratingScore += 2;
-                        } else if (direction > item.direction) {
-                            ratingScore += 1;
+                        if (direction !== 0.0) {
+                            if (direction === item.direction) {
+                                ratingScore += 2;
+                            } else if (direction < item.direction) {
+                                ratingScore += 2 + (item.direction - direction);
+                            }
                         }
 
-                        if (sound === item.sound) {
-                            ratingScore += 2;
-                        } else if (sound > item.sound) {
-                            ratingScore += 1;
+                        if (sound !== 0.0) {
+                            if (sound === item.sound) {
+                                ratingScore += 2;
+                            } else if (sound < item.sound) {
+                                ratingScore += 2 + (item.sound - sound);
+                            }
                         }
 
-                        if (cinematography === item.cinematography) {
-                            ratingScore += 2;
-                        } else if (cinematography > item.cinematography) {
-                            ratingScore += 1;
+                        if (cinematography !== 0.0) {
+                            if (cinematography === item.cinematography) {
+                                ratingScore += 2;
+                            } else if (cinematography < item.cinematography) {
+                                ratingScore += 2 + (item.cinematography - cinematography);
+                            }
                         }
 
-                        if (plot === item.plot) {
-                            ratingScore += 2;
-                        } else if (plot > item.plot) {
-                            ratingScore += 1;
+                        if (plot !== 0.0) {
+                            if (plot === item.plot) {
+                                ratingScore += 2;
+                            } else if (plot < item.plot) {
+                                ratingScore += 2 + (item.plot - plot);
+                            }
                         }
 
-                        if (userReviews === item.userReviews) {
-                            ratingScore += 2;
-                        } else if (userReviews > item.userReviews) {
-                            ratingScore += 1;
+                        if (userReviews !== 0.0) {
+                            if (userReviews === item.userReviews) {
+                                ratingScore += 2;
+                            } else if (userReviews < item.userReviews) {
+                                ratingScore += 2 + (item.userReviews - userReviews);
+                            }
                         }
 
                         finalScore += ratingScore;
