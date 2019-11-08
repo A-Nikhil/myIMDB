@@ -24,8 +24,10 @@ Recommends you movies based on your input or your preserved interests
 <li>After successful installation, type <code>node app</code> and press <code>Enter</code>  
 Your terminal should show <code>Connected | App Listening</code>, this means that you're good to go</li>
 <li>Open up any browser and type <code>localhost:27017</code> and the homepage should appear</li>
-</ol>
-
+</ol>  
+<br/>
+<small>You should have NodeJS installed on your system, If not, visit <a href="https://nodejs.org/en/download/">nodejs.org</a> to download it</small>
+<br/>
 <hr>
 &copy Nikhil Anand <br/> 
 <a href="https://github.com/A-Nikhil">A-Nikhil</a>
